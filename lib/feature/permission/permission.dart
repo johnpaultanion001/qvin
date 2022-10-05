@@ -1,19 +1,19 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled/feature/authentication/authenticate/authenticate.dart';
+import 'package:untitled/feature/permission/provider/sliderProvider.dart';
 import 'package:untitled/res/AppContextExtension.dart';
+import 'widgets/slider.dart';
 
 class Permission extends StatefulWidget {
   const Permission({Key? key}) : super(key: key);
-
   @override
   State<Permission> createState() => _PermissionState();
 }
 
 class _PermissionState extends State<Permission> {
-  List<SliderModel> slides = <SliderModel>[];
   int currentIndex = 0;
   PageController _controller = PageController();
 
@@ -21,7 +21,6 @@ class _PermissionState extends State<Permission> {
   void initState() {
     super.initState();
     _controller = PageController(initialPage: 0);
-    slides = getSlides();
   }
 
   @override
@@ -32,6 +31,9 @@ class _PermissionState extends State<Permission> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<SliderProvider>(context);
+    final slides = provider.slides;
+
     return Scaffold(
       body: Hero(
         tag: 'logo',
@@ -43,8 +45,8 @@ class _PermissionState extends State<Permission> {
               width: 210,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                image: const DecorationImage(
-                  image: AssetImage("assets/drawable/ic_qvin.png"),
+                image: DecorationImage(
+                  image: AssetImage(context.resources.label.logo),
                 ),
               ),
             ),
@@ -60,7 +62,7 @@ class _PermissionState extends State<Permission> {
                   },
                   itemCount: slides.length,
                   itemBuilder: (context, index) {
-                    return Slider(
+                    return SliderDesc(
                       description: slides[index].getDescription(),
                     );
                   }),
@@ -88,7 +90,7 @@ class _PermissionState extends State<Permission> {
                   child: Center(
                     child: Text(slides[currentIndex].getTitle(),
                         style: TextStyle(
-                            color: Colors.blue,
+                            color: context.resources.color.colorPrimary,
                             fontWeight: FontWeight.bold,
                             fontSize: 18)),
                   ),
@@ -102,128 +104,32 @@ class _PermissionState extends State<Permission> {
       backgroundColor: context.resources.color.colorPrimary,
     );
   }
-
-  /*void _getLocation() {
-    _getLocationData().then((value) {
-      LocationData? location = value;
-      _getAddress(location?.latitude, location?.longitude).then((value) {
-        setState(() {
-          currentLocation = location;
-          address = value;
-        });
-      });
-    });
-  }*/
-
 }
 
-class Slider extends StatelessWidget {
-  String description;
+// Future<LocationData?> _getLocationData() async {
+//   Location location = new Location();
+//   LocationData _locationData;
 
-  Slider({required this.description});
+//   bool _serviceEnabled;
+//   PermissionStatus _permissionGranted;
 
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-                softWrap: true,
-                description,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white))
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   _serviceEnabled = await location.serviceEnabled();
+//   if (!_serviceEnabled) {
+//     _serviceEnabled = await location.requestService();
+//     if (!_serviceEnabled) {
+//       return null;
+//     }
+//   }
 
-class SliderModel {
-  String title;
-  String description;
+//   _permissionGranted = await location.hasPermission();
+//   if (_permissionGranted == PermissionStatus.denied) {
+//     _permissionGranted = await location.requestPermission();
+//     if (_permissionGranted != PermissionStatus.granted) {
+//       return null;
+//     }
+//   }
 
-  SliderModel({required this.title, required this.description});
+//   _locationData = await location.getLocation();
 
-  void setTitle(String getTitle) {
-    title = getTitle;
-  }
-
-  void setDescription(String getDescription) {
-    description = getDescription;
-  }
-
-  String getTitle() {
-    return title;
-  }
-
-  String getDescription() {
-    return description;
-  }
-}
-
-List<SliderModel> getSlides() {
-  List<SliderModel> slides = <SliderModel>[];
-  SliderModel sliderModel = SliderModel(title: '', description: '');
-
-  sliderModel.setTitle("LET'S GO!");
-  sliderModel.setDescription("Welcome!");
-  slides.add(sliderModel);
-  sliderModel = SliderModel(title: '', description: '');
-
-  sliderModel.setTitle("ACTIVATE GPS");
-  sliderModel.setDescription(
-      "Let's activate your GPS first. It's how we make sure your forms are done the right way!");
-  slides.add(sliderModel);
-  sliderModel = SliderModel(title: '', description: '');
-
-  sliderModel.setTitle("ACTIVATE NOTIFICATIONS");
-  sliderModel.setDescription(
-      "Now, let's turn on notifications so that you don't miss any repairs or forms and stay DOT ready!");
-  slides.add(sliderModel);
-  sliderModel = SliderModel(title: '', description: '');
-
-  sliderModel.setTitle("ACTIVATE CAMERA");
-  sliderModel.setDescription(
-      "Finally, let's turn on the camera so you can scan the code!");
-  slides.add(sliderModel);
-  sliderModel = SliderModel(title: '', description: '');
-
-  return slides;
-}
-
-
-
-
-Future<LocationData?> _getLocationData() async {
-  Location location = new Location();
-  LocationData _locationData;
-
-  bool _serviceEnabled;
-  PermissionStatus _permissionGranted;
-
-  _serviceEnabled = await location.serviceEnabled();
-  if (!_serviceEnabled) {
-    _serviceEnabled = await location.requestService();
-    if (!_serviceEnabled) {
-      return null;
-    }
-  }
-
-  _permissionGranted = await location.hasPermission();
-  if (_permissionGranted == PermissionStatus.denied) {
-    _permissionGranted = await location.requestPermission();
-    if (_permissionGranted != PermissionStatus.granted) {
-      return null;
-    }
-  }
-
-  _locationData = await location.getLocation();
-
-  return _locationData;
-}
+//   return _locationData;
+// }

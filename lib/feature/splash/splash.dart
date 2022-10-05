@@ -41,8 +41,8 @@ class _SplashState extends State<Splash> {
               width: 250.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                image: const DecorationImage(
-                  image: AssetImage("assets/drawable/ic_qvin.png"),
+                image: DecorationImage(
+                  image: AssetImage(context.resources.label.logo),
                 ),
               ),
             ),

@@ -41,8 +41,8 @@ class _SetupState extends State<Setup> with SingleTickerProviderStateMixin {
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: Material(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             child: FadeTransition(
               opacity: opacityAnimation,
               child: Padding(
@@ -54,14 +54,6 @@ class _SetupState extends State<Setup> with SingleTickerProviderStateMixin {
                       Container(
                         height: 10,
                       ),
-                      RaisedButton(
-                        child: Text("Next"),
-                        onPressed: () {
-                          _controller.forward().then((_) {
-                            _controller.reverse();
-                          });
-                        },
-                      )
                     ],
                   )),
             )),

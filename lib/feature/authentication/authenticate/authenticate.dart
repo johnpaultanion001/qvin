@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:untitled/res/AppContextExtension.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/cupertino.dart';
-
 import '../../dashboard/dashboard.dart';
 
 class Authenticate extends StatefulWidget {
@@ -54,7 +51,7 @@ class _AuthenticateState extends State<Authenticate> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
                     image: DecorationImage(
-                      image: AssetImage("assets/drawable/ic_qvin.png"),
+                      image: AssetImage(context.resources.label.logo),
                     ),
                   ),
                 ),
@@ -247,10 +244,11 @@ class _LoginState extends State<Login> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 0),
                         child: GestureDetector(
-                          onTap:  () {
+                          onTap: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => Dashboard()),
+                              MaterialPageRoute(
+                                  builder: (context) => Dashboard()),
                             );
                           },
                           /*() async {
