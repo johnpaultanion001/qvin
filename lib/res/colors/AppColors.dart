@@ -17,4 +17,10 @@ class AppColors implements BaseColors {
 
   //Text Color
   Color get textPrimary => Colors.blue;
+  Color get textSecondary => Colors.white;
+  Color get textDark => Colors.black12;
+  Color get textGray => Colors.grey;
+
+  // Box shadow
+  Color get boxShadow => Colors.grey.withOpacity(0.5);
 }

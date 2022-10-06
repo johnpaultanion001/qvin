@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/feature/authentication/authenticate/authenticate.dart';
 import 'package:untitled/res/AppContextExtension.dart';
-
+import 'package:untitled/widgets/labels.dart';
 import '../../providers/sliderProvider.dart';
+import '../../widgets/buttons.dart';
 import '../../widgets/logo.dart';
-import '../../widgets/slider.dart';
+import '../authentication/pages/authenticate.dart';
 
 class Permission extends StatefulWidget {
   const Permission({Key? key}) : super(key: key);
@@ -55,14 +55,25 @@ class _PermissionState extends State<Permission> {
                   },
                   itemCount: slides.length,
                   itemBuilder: (context, index) {
-                    return SliderDesc(
-                      description: slides[index].getDescription(),
+                    return Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Labels.md(
+                              text: slides[index].getDescription(),
+                              textColor: context.resources.color.textSecondary,
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   }),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: GestureDetector(
+              child: Buttons(
                 onTap: () {
                   if (currentIndex == slides.length - 1) {
                     Navigator.pushReplacement(
@@ -74,20 +85,9 @@ class _PermissionState extends State<Permission> {
                       duration: Duration(milliseconds: 100),
                       curve: Curves.bounceIn);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
-                      color: context.resources.color.colorWhite,
-                      borderRadius: BorderRadius.circular(32)),
-                  child: Center(
-                    child: Text(slides[currentIndex].getTitle(),
-                        style: TextStyle(
-                            color: context.resources.color.colorPrimary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18)),
-                  ),
-                ),
+                text: slides[currentIndex].getTitle(),
+                color: context.resources.color.colorWhite,
+                textColor: context.resources.color.textPrimary,
               ),
             ),
             SizedBox(height: 60)
