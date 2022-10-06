@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/feature/permission/provider/sliderProvider.dart';
 import 'package:untitled/feature/splash/splash.dart';
 import 'package:untitled/res/AppContextExtension.dart';
+
+import 'providers/sliderProvider.dart';
 
 void main() => runApp(MyApp());
 

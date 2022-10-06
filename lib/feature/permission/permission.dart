@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/feature/authentication/authenticate/authenticate.dart';
-import 'package:untitled/feature/permission/provider/sliderProvider.dart';
 import 'package:untitled/res/AppContextExtension.dart';
-import 'widgets/slider.dart';
+
+import '../../providers/sliderProvider.dart';
+import '../../widgets/logo.dart';
+import '../../widgets/slider.dart';
 
 class Permission extends StatefulWidget {
   const Permission({Key? key}) : super(key: key);
@@ -40,16 +42,7 @@ class _PermissionState extends State<Permission> {
         child: Column(
           children: [
             SizedBox(height: 110),
-            Container(
-              height: 210,
-              width: 210,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                image: DecorationImage(
-                  image: AssetImage(context.resources.label.logo),
-                ),
-              ),
-            ),
+            const Logo(),
             Expanded(
               child: PageView.builder(
                   physics: NeverScrollableScrollPhysics(),
