@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:untitled/feature/splash/splash.dart';
 import 'package:untitled/res/AppContextExtension.dart';
 
+import 'providers/informationProvider.dart';
 import 'providers/sliderProvider.dart';
 
 void main() => runApp(MyApp());
@@ -17,9 +18,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (create) => SliderProvider()),
+          ChangeNotifierProvider(create: (create) => InfomationProvider()),
         ],
         child: MaterialApp(
           title: title,
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: context.resources.color.colorPrimary,
             accentColor: context.resources.color.colorAccent,

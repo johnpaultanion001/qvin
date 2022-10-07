@@ -25,7 +25,7 @@ class _AuthenticateState extends State<Authenticate> {
                 tag: 'logo',
                 child: Logo(),
               ),
-              const SizedBox(height: 300),
+              const SizedBox(height: 350),
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Buttons(

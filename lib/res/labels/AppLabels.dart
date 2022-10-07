@@ -4,4 +4,5 @@ class AppLabels {
   @override
   //Img Logo
   String get logo => "assets/drawable/ic_qvin.png";
+  String get rectangle => "assets/drawable/rectangle.png";
 }

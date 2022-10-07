@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:untitled/res/AppContextExtension.dart';
 
 class Logo extends StatelessWidget {
+  final double height;
+  final double width;
+
   const Logo({
     Key? key,
     this.height = 210,
     this.width = 210,
   }) : super(key: key);
-
-  final double height;
-  final double width;
 
   @override
   Widget build(BuildContext context) {

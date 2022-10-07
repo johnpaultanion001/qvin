@@ -64,12 +64,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       const SizedBox(height: 30),
                       const TextField(
                         decoration: InputDecoration(
-                            /*prefixIcon: Icon(
-                              Icons.person,
-                              color: Colors.white,
-                            ),*/
                             border: OutlineInputBorder(
-                              // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide.none,
@@ -110,12 +105,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       const SizedBox(height: 10),
                       const TextField(
                         decoration: InputDecoration(
-                            /*prefixIcon: Icon(
-                              Icons.person,
-                              color: Colors.white,
-                            ),*/
                             border: OutlineInputBorder(
-                              // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide.none,
@@ -128,12 +118,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       const SizedBox(height: 10),
                       const TextField(
                         decoration: InputDecoration(
-                            /*prefixIcon: Icon(
-                              Icons.person,
-                              color: Colors.white,
-                            ),*/
                             border: OutlineInputBorder(
-                              // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide.none,
@@ -147,22 +132,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: GestureDetector(
-                          /*onTap: _resetPassword,*/
-                          onTap:
-                              () {} /*async {
-                            final backButton =
-                            await Navigator.of(context).push<bool?>(
-                              PageRouteBuilder(
-                                opaque: false,
-                                barrierDismissible: true,
-                                pageBuilder: (_, __, ___) => ResetPassword(),
-                              ),
-                            );
-                            if (backButton == null || backButton == false) {
-                              if (mounted) Navigator.of(context).pop();
-                            }
-                          }*/
-                          ,
+                          onTap: () {},
                           child: Container(
                             padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(

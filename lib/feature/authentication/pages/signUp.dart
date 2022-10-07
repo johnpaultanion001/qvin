@@ -1,8 +1,6 @@
 // ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:untitled/res/AppContextExtension.dart';
-
 import 'profile.dart';
 
 class SignUp extends StatefulWidget {
@@ -91,12 +89,7 @@ class _SignUpState extends State<SignUp> {
                       const SizedBox(height: 10),
                       const TextField(
                         decoration: InputDecoration(
-                            /*prefixIcon: Icon(
-                              Icons.person,
-                              color: Colors.white,
-                            ),*/
                             border: OutlineInputBorder(
-                              // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide.none,
