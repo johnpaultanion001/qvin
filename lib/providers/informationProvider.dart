@@ -17,6 +17,42 @@ class InfomationProvider extends ChangeNotifier {
       title: "Insurance",
       createdAt: DateTime.now(),
     ),
+    InformationModel(
+      title: "Registration",
+      createdAt: DateTime.now(),
+    ),
+    InformationModel(
+      title: "Annual Inspection",
+      createdAt: DateTime.now(),
+    ),
+    InformationModel(
+      title: "Insurance",
+      createdAt: DateTime.now(),
+    ),
+    InformationModel(
+      title: "Registration",
+      createdAt: DateTime.now(),
+    ),
+    InformationModel(
+      title: "Annual Inspection",
+      createdAt: DateTime.now(),
+    ),
+    InformationModel(
+      title: "Insurance",
+      createdAt: DateTime.now(),
+    ),
+    InformationModel(
+      title: "Registration",
+      createdAt: DateTime.now(),
+    ),
+    InformationModel(
+      title: "Annual Inspection",
+      createdAt: DateTime.now(),
+    ),
+    InformationModel(
+      title: "Insurance",
+      createdAt: DateTime.now(),
+    ),
   ];
 
   List<InformationModel> get infos => _infos.toList();

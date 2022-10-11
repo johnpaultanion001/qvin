@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:untitled/feature/dashboard/widgets/dvir.dart';
-import 'package:untitled/feature/dashboard/widgets/information/information.dart';
-import 'package:untitled/feature/dashboard/widgets/profile.dart';
-import 'package:untitled/feature/dashboard/widgets/scan_qr.dart';
+import 'package:untitled/feature/dashboard/contents/dvir.dart';
+import 'package:untitled/feature/dashboard/contents/information/information.dart';
+import 'package:untitled/feature/dashboard/contents/profile/profile.dart';
+import 'package:untitled/feature/dashboard/contents/scan_qr.dart';
 import 'package:untitled/res/AppContextExtension.dart';
 import 'package:untitled/widgets/bottomBar.dart';
 
@@ -84,6 +84,7 @@ class _Dashboard extends State<Dashboard> {
         ],
         centerTitle: _selectedIndex != 1 ? true : false,
         backgroundColor: context.resources.color.colorPrimary,
+        elevation: 0,
         title: Text(
           _title,
           style: TextStyle(fontSize: 16, color: Colors.white),

@@ -13,6 +13,9 @@ class AppColors implements BaseColors {
   Color get colorLightGray => HexColor("#999999");
 
   @override
+  Color get colorDark => HexColor("#000000");
+
+  @override
   Color get colorWhite => HexColor("#F4F8FB");
 
   //Text Color
