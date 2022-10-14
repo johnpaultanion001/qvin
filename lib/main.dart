@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/feature/splash/splash.dart';
-import 'package:untitled/res/AppContextExtension.dart';
+import 'package:untitled/view/splash/splash.dart';
+import 'package:untitled/styles/AppContextExtension.dart';
 
 import 'providers/informationProvider.dart';
 import 'providers/sliderProvider.dart';
