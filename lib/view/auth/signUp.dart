@@ -5,7 +5,6 @@ import 'profile.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
-
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -31,7 +30,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ],
             ),
-            height: 600,
+            height: 500,
             width: double.maxFinite,
             child: Padding(
               padding: const EdgeInsets.all(18),
@@ -40,7 +39,6 @@ class _SignUpState extends State<SignUp> {
                   type: MaterialType.transparency,
                   child: Column(
                     children: [
-                      const SizedBox(height: 25),
                       Row(
                         children: [
                           InkWell(

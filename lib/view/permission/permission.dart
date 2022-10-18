@@ -81,8 +81,8 @@ class _PermissionState extends State<Permission> {
                     );
                   }
                   _controller.nextPage(
-                      duration: Duration(milliseconds: 100),
-                      curve: Curves.bounceIn);
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
                 },
                 text: slides[currentIndex].getTitle(),
                 color: context.resources.color.colorWhite,
@@ -97,31 +97,3 @@ class _PermissionState extends State<Permission> {
     );
   }
 }
-
-// Future<LocationData?> _getLocationData() async {
-//   Location location = new Location();
-//   LocationData _locationData;
-
-//   bool _serviceEnabled;
-//   PermissionStatus _permissionGranted;
-
-//   _serviceEnabled = await location.serviceEnabled();
-//   if (!_serviceEnabled) {
-//     _serviceEnabled = await location.requestService();
-//     if (!_serviceEnabled) {
-//       return null;
-//     }
-//   }
-
-//   _permissionGranted = await location.hasPermission();
-//   if (_permissionGranted == PermissionStatus.denied) {
-//     _permissionGranted = await location.requestPermission();
-//     if (_permissionGranted != PermissionStatus.granted) {
-//       return null;
-//     }
-//   }
-
-//   _locationData = await location.getLocation();
-
-//   return _locationData;
-// }

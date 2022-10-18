@@ -75,7 +75,7 @@ class _TypeOfUserState extends State<TypeOfUser> {
                 ),
               ],
             ),
-            height: 600,
+            height: 500,
             width: double.maxFinite,
             child: Padding(
               padding: const EdgeInsets.all(18),
@@ -83,32 +83,49 @@ class _TypeOfUserState extends State<TypeOfUser> {
                 child: Material(
                   type: MaterialType.transparency,
                   child: Column(
-                    children: [
-                      const SizedBox(height: 25),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Labels.lg(
-                          text: "Type Of Users",
-                          textColor: context.resources.color.textPrimary,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Labels.lg(
+                            text: "Type Of Users",
+                            textColor: context.resources.color.textPrimary,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 25),
-                      ...List.generate(
-                        buttonText.length,
-                        (index) => button(
-                          index: index,
-                          text: buttonText[index],
+                      Expanded(
+                        flex: 6,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ...List.generate(
+                                buttonText.length,
+                                (index) => button(
+                                  index: index,
+                                  text: buttonText[index],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 30),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 0),
-                          child: Buttons(
-                            onTap: _signup,
-                            text: "CONTINUE",
-                            color: context.resources.color.colorAccent,
-                            textColor: context.resources.color.textSecondary,
-                          )),
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0),
+                              child: Buttons(
+                                onTap: _signup,
+                                text: "CONTINUE",
+                                color: context.resources.color.colorAccent,
+                                textColor:
+                                    context.resources.color.textSecondary,
+                              )),
+                        ),
+                      ),
                     ],
                   ),
                 ),

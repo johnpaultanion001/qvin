@@ -32,7 +32,7 @@ class _CreateProfileState extends State<CreateProfile> {
                 ),
               ],
             ),
-            height: 600,
+            height: 500,
             width: double.maxFinite,
             child: Padding(
               padding: const EdgeInsets.all(18),
@@ -41,7 +41,6 @@ class _CreateProfileState extends State<CreateProfile> {
                   type: MaterialType.transparency,
                   child: Column(
                     children: [
-                      const SizedBox(height: 25),
                       Row(
                         children: [
                           InkWell(
@@ -57,7 +56,6 @@ class _CreateProfileState extends State<CreateProfile> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
                       const Align(
                           alignment: Alignment.topLeft,
                           child: Text("Create Profile")),
@@ -128,7 +126,7 @@ class _CreateProfileState extends State<CreateProfile> {
                             fillColor: Colors.black12,
                             hintText: 'Phone #'),
                       ),
-                      const SizedBox(height: 90),
+                      const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: GestureDetector(

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:untitled/styles/AppContextExtension.dart';
 import '../../../../styles/widgets/buttons.dart';
 import '../../../../styles/widgets/labels.dart';
-import '../../../../styles/widgets/logo.dart';
-import '../../../../styles/widgets/textField.dart';
-import '../../dashboard.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -54,119 +51,103 @@ class _InformationState extends State<Profile> {
                 child: Padding(
                   padding: const EdgeInsets.all(18),
                   child: Column(
-                    children: [
-                      Container(
-                        color: Colors.white,
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Labels.sm(
-                                    text: 'Full Name',
-                                    textColor:
-                                        context.resources.color.colorLightGray,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.md(
-                                    text: 'John Doe',
-                                    textColor:
-                                        context.resources.color.colorDark,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Divider(
-                                    color:
-                                        context.resources.color.colorLightGray,
-                                    thickness: 1,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.sm(
-                                    text: 'Company',
-                                    textColor:
-                                        context.resources.color.colorLightGray,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.md(
-                                    text: 'Company Name',
-                                    textColor:
-                                        context.resources.color.colorDark,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Divider(
-                                    color:
-                                        context.resources.color.colorLightGray,
-                                    thickness: 1,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.sm(
-                                    text: 'DOT #',
-                                    textColor:
-                                        context.resources.color.colorLightGray,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.md(
-                                    text: '1234567890',
-                                    textColor:
-                                        context.resources.color.colorDark,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Divider(
-                                    color:
-                                        context.resources.color.colorLightGray,
-                                    thickness: 1,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.sm(
-                                    text: 'Phone',
-                                    textColor:
-                                        context.resources.color.colorLightGray,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.md(
-                                    text: '+02323323232',
-                                    textColor:
-                                        context.resources.color.colorDark,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Divider(
-                                    color:
-                                        context.resources.color.colorLightGray,
-                                    thickness: 1,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.sm(
-                                    text: 'Email',
-                                    textColor:
-                                        context.resources.color.colorLightGray,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Labels.md(
-                                    text: 'johndoe@gmail.com',
-                                    textColor:
-                                        context.resources.color.colorDark,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Divider(
-                                    color:
-                                        context.resources.color.colorLightGray,
-                                    thickness: 1,
-                                  ),
-                                ],
+                    children: <Widget>[
+                      Expanded(
+                        flex: 6,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Labels.sm(
+                                text: 'Full Name',
+                                textColor:
+                                    context.resources.color.colorLightGray,
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 10),
+                              Labels.md(
+                                text: 'John Doe',
+                                textColor: context.resources.color.colorDark,
+                              ),
+                              const SizedBox(height: 10),
+                              Divider(
+                                color: context.resources.color.colorLightGray,
+                                thickness: 1,
+                              ),
+                              const SizedBox(height: 10),
+                              Labels.sm(
+                                text: 'Company',
+                                textColor:
+                                    context.resources.color.colorLightGray,
+                              ),
+                              const SizedBox(height: 10),
+                              Labels.md(
+                                text: 'Company Name',
+                                textColor: context.resources.color.colorDark,
+                              ),
+                              const SizedBox(height: 10),
+                              Divider(
+                                color: context.resources.color.colorLightGray,
+                                thickness: 1,
+                              ),
+                              const SizedBox(height: 10),
+                              Labels.sm(
+                                text: 'DOT #',
+                                textColor:
+                                    context.resources.color.colorLightGray,
+                              ),
+                              const SizedBox(height: 10),
+                              Labels.md(
+                                text: '1234567890',
+                                textColor: context.resources.color.colorDark,
+                              ),
+                              const SizedBox(height: 10),
+                              Divider(
+                                color: context.resources.color.colorLightGray,
+                                thickness: 1,
+                              ),
+                              const SizedBox(height: 10),
+                              Labels.sm(
+                                text: 'Phone',
+                                textColor:
+                                    context.resources.color.colorLightGray,
+                              ),
+                              const SizedBox(height: 10),
+                              Labels.md(
+                                text: '+02323323232',
+                                textColor: context.resources.color.colorDark,
+                              ),
+                              const SizedBox(height: 10),
+                              Divider(
+                                color: context.resources.color.colorLightGray,
+                                thickness: 1,
+                              ),
+                              const SizedBox(height: 10),
+                              Labels.sm(
+                                text: 'Email',
+                                textColor:
+                                    context.resources.color.colorLightGray,
+                              ),
+                              const SizedBox(height: 10),
+                              Labels.md(
+                                text: 'johndoe@gmail.com',
+                                textColor: context.resources.color.colorDark,
+                              ),
+                              const SizedBox(height: 10),
+                            ],
+                          ),
                         ),
                       ),
-                      Padding(
-                          padding: const EdgeInsets.all(1),
-                          child: Buttons(
-                            onTap: () {},
-                            text: "LOGOUT",
-                            color: context.resources.color.colorAccent,
-                            textColor: context.resources.color.textSecondary,
-                          ))
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                            padding: const EdgeInsets.all(1),
+                            child: Buttons(
+                              onTap: () {},
+                              text: "LOGOUT",
+                              color: context.resources.color.colorAccent,
+                              textColor: context.resources.color.textSecondary,
+                            )),
+                      ),
                     ],
                   ),
                 ),

@@ -21,29 +21,40 @@ class _AuthenticateState extends State<Authenticate> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Hero(
-                tag: 'logo',
+              const Expanded(
+                flex: 3,
                 child: Logo(),
               ),
-              const SizedBox(height: 350),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              const SizedBox(height: 150),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
                   child: Buttons(
                     onTap: _showSignUp,
                     text: "SIGNUP",
                     color: context.resources.color.colorAccent,
                     textColor: context.resources.color.textSecondary,
-                  )),
-              const SizedBox(height: 20),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 25),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
                   child: Buttons(
                     onTap: _showLogin,
                     text: "LOGIN",
                     color: context.resources.color.colorWhite,
                     textColor: context.resources.color.textPrimary,
-                  )),
-              const SizedBox(height: 60),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: const SizedBox(height: 150),
+              ),
             ],
           ),
         )),

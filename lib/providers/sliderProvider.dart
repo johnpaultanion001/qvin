@@ -7,7 +7,8 @@ class SliderProvider extends ChangeNotifier {
   List<SliderModel> _sliders = [
     SliderModel(
       title: "LET'S GO!",
-      description: "Welcome!",
+      description:
+          'Welcome to QVIN, To get started , we need to activate some things like GPS, Notifications, and Camera access.',
     ),
     SliderModel(
       title: "ACTIVATE GPS",
