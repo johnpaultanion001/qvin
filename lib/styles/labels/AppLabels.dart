@@ -5,4 +5,6 @@ class AppLabels {
   //Img Logo
   String get logo => "assets/drawable/ic_qvin.png";
   String get rectangle => "assets/drawable/rectangle.png";
+  String get truck1 => "assets/drawable/truck1.png";
+  String get truck2 => "assets/drawable/truck2.png";
 }

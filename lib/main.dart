@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: context.resources.color.colorPrimary,
-            accentColor: context.resources.color.colorAccent,
-            scaffoldBackgroundColor: Colors.grey.shade100,
+            accentColor: context.resources.color.colorPrimary,
+            scaffoldBackgroundColor: context.resources.color.colorWhite,
             primarySwatch: Colors.grey,
           ),
           home: Splash(),

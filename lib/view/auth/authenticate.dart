@@ -21,39 +21,29 @@ class _AuthenticateState extends State<Authenticate> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Logo(),
+              const SizedBox(height: 160),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Buttons(
+                  onTap: _showSignUp,
+                  text: "SIGNUP",
+                  color: context.resources.color.colorAccent,
+                  textColor: context.resources.color.textSecondary,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Buttons(
+                  onTap: _showLogin,
+                  text: "LOGIN",
+                  color: context.resources.color.colorWhite,
+                  textColor: context.resources.color.textPrimary,
+                ),
+              ),
               const Expanded(
-                flex: 3,
-                child: Logo(),
-              ),
-              const SizedBox(height: 150),
-              Expanded(
                 flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Buttons(
-                    onTap: _showSignUp,
-                    text: "SIGNUP",
-                    color: context.resources.color.colorAccent,
-                    textColor: context.resources.color.textSecondary,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 25),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Buttons(
-                    onTap: _showLogin,
-                    text: "LOGIN",
-                    color: context.resources.color.colorWhite,
-                    textColor: context.resources.color.textPrimary,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: const SizedBox(height: 150),
+                child: SizedBox(height: 150),
               ),
             ],
           ),
@@ -77,7 +67,7 @@ class _AuthenticateState extends State<Authenticate> {
       PageRouteBuilder(
         opaque: false,
         barrierDismissible: true,
-        pageBuilder: (_, __, ___) => TypeOfUser(),
+        pageBuilder: (_, __, ___) => const TypeOfUser(),
       ),
     );
   }

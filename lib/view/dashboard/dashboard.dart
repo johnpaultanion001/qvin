@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:untitled/view/dashboard/contents/dvir.dart';
+import 'package:untitled/view/dashboard/contents/dvir/dvir.dart';
+import 'package:untitled/view/dashboard/contents/dvir/dvir_form.dart';
 import 'package:untitled/view/dashboard/contents/information/information.dart';
 import 'package:untitled/view/dashboard/contents/profile/profile.dart';
 import 'package:untitled/view/dashboard/contents/scan_qr/scan_qr.dart';
