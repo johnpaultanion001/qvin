@@ -1,44 +1,45 @@
-// ignore_for_file: prefer_const_constructors
-
+// ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:untitled/view/dashboard/contents/dvir/dvir.dart';
-import 'package:untitled/view/dashboard/contents/dvir/dvir_form.dart';
+import 'package:untitled/view/dashboard/contents/dvir/dvir_visual.dart';
 import 'package:untitled/view/dashboard/contents/information/information.dart';
 import 'package:untitled/view/dashboard/contents/profile/profile.dart';
 import 'package:untitled/view/dashboard/contents/scan_qr/scan_qr.dart';
 import 'package:untitled/styles/AppContextExtension.dart';
 import 'package:untitled/styles/widgets/bottomBar.dart';
-
 import '../../utils/loading.dart';
+import 'contents/dvir/dvir.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  int selectedItem;
+  Dashboard({
+    Key? key,
+    this.selectedItem = 0,
+  }) : super(key: key);
 
   @override
   State<Dashboard> createState() => _Dashboard();
 }
 
 class _Dashboard extends State<Dashboard> {
-  int _selectedIndex = 0;
   late String _title;
   bool isLoading = false;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = <Widget>[
     ScanQR(),
-    DVIR(),
+    DVIRVisual(),
     Information(),
     Profile(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      widget.selectedItem = index;
       switch (index) {
         case 0:
           _title = 'SCAN QR CODE';
           break;
         case 1:
-          _title = 'DVIR FORM';
+          _title = 'DVIR';
           break;
         case 2:
           _title = 'INFORMATION';
@@ -61,26 +62,31 @@ class _Dashboard extends State<Dashboard> {
       : Scaffold(
           appBar: AppBar(
             actions: <Widget>[
-              if (_selectedIndex == 1)
+              if (widget.selectedItem == 1)
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => Dashboard()),
+                        MaterialPageRoute(
+                            builder: (context) => Dashboard(
+                                  selectedItem: 4,
+                                )),
                       );
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
+                          border: Border.all(
+                              color: context.resources.color.colorLightGray),
                           color: context.resources.color.colorAccent,
                           borderRadius: BorderRadius.circular(6)),
                       child: Center(
-                        child: Text('VISUAL MODE',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
+                        child: Text('FORM MODE',
+                            style: TextStyle(
+                                color: context.resources.color.colorWhite,
+                                fontSize: 16)),
                       ),
                     ),
                   ),
@@ -88,7 +94,7 @@ class _Dashboard extends State<Dashboard> {
               else
                 Container(),
             ],
-            centerTitle: _selectedIndex != 1 ? true : false,
+            centerTitle: widget.selectedItem != 1 ? true : false,
             backgroundColor: context.resources.color.colorPrimary,
             elevation: 0,
             title: Text(
@@ -98,11 +104,11 @@ class _Dashboard extends State<Dashboard> {
             automaticallyImplyLeading: false,
           ),
           body: Center(
-            child: _widgetOptions.elementAt(_selectedIndex),
+            child: _widgetOptions.elementAt(widget.selectedItem),
           ),
           bottomNavigationBar: BottomBar(
             onTap: _onItemTapped,
-            selectedIndex: _selectedIndex,
+            selectedIndex: widget.selectedItem,
           ),
         );
 }

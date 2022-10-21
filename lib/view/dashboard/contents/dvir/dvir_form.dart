@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
-import 'package:untitled/view/dashboard/contents/dvir/dvir.dart';
-
-import '../../../../styles/styles.dart';
-import '../../../../styles/widgets/buttons.dart';
-import '../../../../styles/widgets/labels.dart';
+import 'package:untitled/view/dashboard/contents/dvir/widgets/trailer.dart';
+import 'package:untitled/view/dashboard/contents/dvir/widgets/truck.dart';
+import 'package:untitled/view/dashboard/contents/dvir/widgets/you_selected.dart';
 
 class DVIRForm extends StatefulWidget {
   const DVIRForm({super.key});
@@ -16,167 +11,65 @@ class DVIRForm extends StatefulWidget {
 }
 
 class _DVIRFormState extends State<DVIRForm> {
-  bool? check = true;
-
+  int currentStep = 0;
+  bool hide = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'PRIO DVIR FORM',
-          style: TextStyle(fontSize: 16, color: Colors.white),
-        ),
-        backgroundColor: context.resources.color.colorPrimary,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back,
-              color: context.resources.color.colorPrimary),
-          onPressed: () {},
-        ),
+    return Theme(
+      data: ThemeData(
+        primaryColor: Colors.blueAccent,
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 9,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: <Widget>[
-                    const Labels.md(
-                      text: 'Date: Jan 20th, 2023',
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                    const Labels.md(
-                      text: 'Truck/Tractor No: D0121221212',
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                    const Labels.md(
-                      text: 'Flagged:',
-                    ),
-                    const Labels.md(
-                      text: 'Air Compressor',
-                    ),
-                    const Labels.md(
-                      text: 'Front Axie',
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                    const SizedBox(height: 5),
-                    const Labels.md(
-                      text: 'Trailer No: D0121221212',
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                    const Labels.md(
-                      text: 'Flagged:',
-                    ),
-                    const Labels.md(
-                      text: 'Brake Connections',
-                    ),
-                    const Labels.md(
-                      text: 'Tires',
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                    const Labels.md(
-                      text: 'Remarks',
-                    ),
-                    const Labels.md(
-                      text:
-                          'Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                    CheckboxListTile(
-                      value: check,
-                      controlAffinity:
-                          ListTileControlAffinity.leading, //checkbox at left
-                      onChanged: (bool? value) {
-                        setState(() {
-                          check = value;
-                        });
-                      },
-                      title: const Labels.md(
-                        text: 'Above Defects Corrected',
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                    const Labels.md(
-                      text: "Mechanic's Signature:",
-                    ),
-                    TextFormField(
-                      decoration: Styles.input,
-                    ),
-                    const SizedBox(height: 10),
-                    const Labels.md(
-                      text: 'Date: 08/22/2023',
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                    const SizedBox(height: 5),
-                    const Labels.md(
-                      text: "Driver's Signature:",
-                    ),
-                    TextFormField(
-                      decoration: Styles.input,
-                    ),
-                    const SizedBox(height: 5),
-                    const Labels.md(
-                      text: 'Date: 08/22/2023',
-                    ),
-                    const SizedBox(height: 10),
-                    Divider(
-                      color: context.resources.color.colorLightGray,
-                      thickness: 1,
-                    ),
-                  ],
-                ),
+      child: Stepper(
+        type: StepperType.horizontal,
+        steps: getStep(),
+        currentStep: currentStep,
+        onStepContinue: () {
+          final isLastStep = currentStep == getStep().length - 1;
+          if (isLastStep) {
+            print("Completed");
+          } else {
+            setState(() => currentStep += 1);
+          }
+        },
+        onStepTapped: (step) => setState(() => currentStep = step),
+        onStepCancel:
+            currentStep == 0 ? null : () => setState(() => currentStep -= 1),
+        controlsBuilder: (BuildContext ctx, ControlsDetails dtl) {
+          return Row(
+            children: <Widget>[
+              TextButton(
+                onPressed: dtl.onStepContinue,
+                child: Text(hide == true ? '' : 'NEXT'),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Buttons(
-                  onTap: () => Navigator.of(context).pop(),
-                  text: "ACCEPT THIS DVIR",
-                  color: context.resources.color.colorAccent,
-                  textColor: context.resources.color.textSecondary,
-                )),
-          ),
-        ],
+              TextButton(
+                onPressed: dtl.onStepCancel,
+                child: Text(hide == true ? '' : 'BACK'),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
+
+  List<Step> getStep() => [
+        Step(
+          state: currentStep > 0 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 0,
+          title: const Text('DVIR'),
+          content: const TruckWidget(),
+        ),
+        Step(
+          state: currentStep > 1 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 1,
+          title: const Text('DVIR'),
+          content: const TrailerWidget(),
+        ),
+        Step(
+          state: currentStep > 2 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 2,
+          title: const Text('DVIR'),
+          content: const YouSelectedWidget(),
+        ),
+      ];
 }

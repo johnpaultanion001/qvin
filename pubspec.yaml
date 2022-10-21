@@ -43,5 +43,7 @@ flutter:
     - assets/drawable/rectangle.png
     - assets/drawable/truck1.png
     - assets/drawable/truck2.png
+    - assets/drawable/truck3.png
+    - assets/drawable/truck4.png
   #   - drawable/a_dot_burr.jpeg
   #   - drawable/a_dot_ham.jpeg

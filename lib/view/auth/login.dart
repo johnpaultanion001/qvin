@@ -32,7 +32,10 @@ class _LoginState extends State<Login> {
       await Future.delayed(const Duration(seconds: 3), () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Dashboard()),
+          MaterialPageRoute(
+              builder: (context) => Dashboard(
+                    selectedItem: 0,
+                  )),
         );
       });
       setState(() => isLoading = false);

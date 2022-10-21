@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:untitled/styles/AppContextExtension.dart';
 import 'package:untitled/styles/widgets/labels.dart';
+import 'package:untitled/view/dashboard/contents/dvir/widgets/select_problem.dart';
 
 class TruckWidget extends StatelessWidget {
   const TruckWidget({super.key});
@@ -39,7 +40,7 @@ class TruckWidget extends StatelessWidget {
             itemCount: imgList.length,
             itemBuilder: (context, index, realIndex) {
               final urlImage = imgList[index];
-              return buildImage(urlImage, index);
+              return buildImage(urlImage, index, context);
             },
           )),
           Center(
@@ -73,11 +74,18 @@ class TruckWidget extends StatelessWidget {
     );
   }
 
-  Widget buildImage(String urlImage, int index) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          image: DecorationImage(
-            image: AssetImage(urlImage),
+  Widget buildImage(String urlImage, int index, BuildContext context) =>
+      GestureDetector(
+        onTap: () => showDialog(
+          context: context,
+          builder: (context) => SelectProblem(),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            image: DecorationImage(
+              image: AssetImage(urlImage),
+            ),
           ),
         ),
       );

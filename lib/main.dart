@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/view/splash/splash.dart';
 import 'package:untitled/styles/AppContextExtension.dart';
-
 import 'providers/informationProvider.dart';
 import 'providers/sliderProvider.dart';
 
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
             primaryColor: context.resources.color.colorPrimary,
             accentColor: context.resources.color.colorPrimary,
             scaffoldBackgroundColor: context.resources.color.colorWhite,
-            primarySwatch: Colors.grey,
           ),
           home: Splash(),
         ));

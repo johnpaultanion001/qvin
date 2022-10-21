@@ -15,7 +15,7 @@ class AppColors {
   Color get colorDark => HexColor("#000000");
 
   @override
-  Color get colorWhite => HexColor("#F4F8FB");
+  Color get colorWhite => HexColor("#FFFFFF");
 
   //Text Color
   Color get textPrimary => Colors.blue;
