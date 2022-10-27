@@ -161,16 +161,10 @@ class _TypeOfUserState extends State<TypeOfUser> {
   }
 
   void _signup() async {
-    print(_selectedType);
-    final backButton = await Navigator.of(context).push<bool?>(
-      PageRouteBuilder(
-        opaque: false,
-        barrierDismissible: true,
-        pageBuilder: (_, __, ___) => SignUp(type_of_user: _selectedType!),
-      ),
-    );
-    if (backButton == null || backButton == false) {
-      if (mounted) Navigator.of(context).pop();
-    }
+    String typeOfUser = _selectedType!.replaceAll(RegExp(' '), '_');
+    print(typeOfUser.toLowerCase());
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => SignUp(typeOfUser: typeOfUser.toLowerCase()),
+    ));
   }
 }

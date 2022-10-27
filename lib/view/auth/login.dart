@@ -89,39 +89,64 @@ class _LoginState extends State<Login> {
                                 const Align(
                                     alignment: Alignment.topLeft,
                                     child: Labels.sm(text: "Lets get started")),
-                                const SizedBox(height: 60),
+                                const SizedBox(height: 40),
+                                Consumer<AuthProvider>(
+                                  builder: (context, user, child) {
+                                    return user.notification;
+                                  },
+                                ),
+                                const SizedBox(height: 20),
                                 TextFormField(
-                                    decoration: Styles.input.copyWith(
-                                      hintText: 'Email Address',
-                                      labelText: 'Email Address',
-                                    ),
-                                    validator: (value) {
-                                      email = value!.trim();
-                                      return Validate.validateEmail(value);
-                                    }),
+                                  decoration: Styles.input.copyWith(
+                                    labelText: 'Email Address',
+                                  ),
+                                  validator: (value) {
+                                    email = value!.trim();
+                                    return Validate.validateEmail(value);
+                                  },
+                                  initialValue: 'test@test.com',
+                                ),
                                 const SizedBox(height: 30),
                                 TextFormField(
-                                    obscureText: true,
-                                    decoration: Styles.input.copyWith(
-                                      hintText: 'Password',
-                                      labelText: 'Password',
-                                    ),
-                                    validator: (value) {
-                                      password = value!.trim();
-                                      return Validate.requiredField(
-                                          value, 'Password is required.');
-                                    }),
-                                const SizedBox(height: 50),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                    onTap: _resetPasswordLink,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child:
-                                          Labels.sm(text: "Forgot Password?"),
-                                    ),
+                                  obscureText: true,
+                                  decoration: Styles.input.copyWith(
+                                    labelText: 'Password',
                                   ),
+                                  validator: (value) {
+                                    password = value!.trim();
+                                    return Validate.requiredField(
+                                        value, 'Password is required.');
+                                  },
+                                  initialValue: 'password',
+                                ),
+                                const SizedBox(height: 50),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: _resetPasswordLink,
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child:
+                                            Labels.sm(text: "Forgot Password?"),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/register');
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Labels.sm(
+                                          text: "Create Account?",
+                                          textColor: context
+                                              .resources.color.textPrimary,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 const SizedBox(height: 20),
                                 Padding(

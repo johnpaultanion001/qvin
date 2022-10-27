@@ -35,4 +35,17 @@ class Validate {
     }
     return "";
   }
+
+  static String confirmPassword(String cpass, String pass) {
+    String confirm_password = cpass.trim();
+    String password = pass.trim();
+
+    if (confirm_password.isEmpty) {
+      return 'Password confirm is required.';
+    }
+    if (confirm_password != password) {
+      return 'The confirm password confirmation does not match';
+    }
+    return '';
+  }
 }

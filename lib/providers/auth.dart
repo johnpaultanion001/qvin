@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/database.dart';
-import '../models/user_model.dart';
+import '../utils/notification_text.dart';
 
 enum Status {
   Uninitialized,
@@ -18,11 +18,11 @@ class AuthProvider with ChangeNotifier {
   Status _status = Status.Splash;
   late String _token;
   final SQLiteHelper _db = SQLiteHelper();
+  NotificationText _notification = NotificationText('');
 
   Status get status => _status;
   String get token => _token;
-
-  final String api = 'http://192.168.0.33:8000/api/v1/auth';
+  NotificationText get notification => _notification;
 
   initAuthProvider() async {
     String? token = await getToken();
@@ -36,7 +36,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> login(String email, String password) async {
-    final url = 'https://staging.app.dot-ready.com/api/qvin/login';
+    const url = 'https://staging.app.dot-ready.com/api/qvin/login';
     final data = {
       "email": email,
       "password": password,
@@ -44,30 +44,90 @@ class AuthProvider with ChangeNotifier {
 
     final dio = Dio();
     Response response;
-    response = await dio.post(url, data: data);
-
-    if (response.statusCode == 200) {
-      print(response.data['data']['user']);
-      _status = Status.Authenticated;
-
-      _token = response.data['data']['access_token'];
-      await storeUserData(response.data['data']);
-      await addOrUpdate(response.data['data']);
-
-      print(response.statusCode);
-      notifyListeners();
-      print(_status);
-      return true;
-    }
-
-    if (response.statusCode == 401) {
+    try {
+      response = await dio.post(url, data: data);
+      if (response.statusCode == 200) {
+        print(response.data['data']['user']);
+        _notification = const NotificationText(
+          'Successfully signed in.',
+          type: 'info',
+        );
+        _status = Status.Authenticated;
+        _token = response.data['data']['access_token'];
+        await storeUserData(response.data['data']);
+        await addOrUpdate(response.data['data']);
+        print(response.statusCode);
+        notifyListeners();
+        print(_status);
+        return true;
+      }
+    } on DioError catch (e) {
+      _notification = const NotificationText(
+        'Wrong email or password',
+      );
       _status = Status.Unauthenticated;
-      print('Invalid email or password.');
+      print(e);
       notifyListeners();
       return false;
     }
 
     _status = Status.Unauthenticated;
+    _notification = const NotificationText(
+      'Server Error',
+    );
+    notifyListeners();
+    print('Server error.');
+    return false;
+  }
+
+  Future<bool> signup(
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+    String typeOfUser,
+  ) async {
+    final url = 'https://staging.app.dot-ready.com/api/qvin/signup';
+    final data = {
+      "first_name": firstName,
+      "last_name": lastName,
+      "email": email,
+      "password": password,
+      "type": typeOfUser,
+    };
+
+    final dio = Dio();
+    Response response;
+    try {
+      response = await dio.post(url, data: data);
+
+      if (response.statusCode == 200) {
+        print(response.data['data']);
+        print(response.statusCode);
+        _status = Status.Unauthenticated;
+        _notification = const NotificationText(
+          'Sign in your newly created account',
+          type: 'info',
+        );
+        notifyListeners();
+        print(_status);
+        return true;
+      }
+    } on DioError catch (e) {
+      _notification = const NotificationText(
+        'Your email is already used, Try to sign up another email',
+      );
+      _status = Status.Unauthenticated;
+      print(e);
+      notifyListeners();
+      return false;
+    }
+
+    _status = Status.Unauthenticated;
+    _notification = const NotificationText(
+      'Server Error',
+    );
+    notifyListeners();
     print('Server error.');
     return false;
   }
@@ -100,6 +160,9 @@ class AuthProvider with ChangeNotifier {
 
   logOut([bool tokenExpired = false]) async {
     _status = Status.Unauthenticated;
+    _notification = const NotificationText(
+      '',
+    );
     notifyListeners();
     SharedPreferences storage = await SharedPreferences.getInstance();
     await storage.clear();

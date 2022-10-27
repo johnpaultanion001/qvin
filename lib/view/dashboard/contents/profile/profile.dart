@@ -178,19 +178,16 @@ class ProfileWidget extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 1,
-                        child: Padding(
-                            padding: const EdgeInsets.all(1),
-                            child: Buttons(
-                              onTap: () {
-                                Provider.of<AuthProvider>(context,
-                                        listen: false)
-                                    .logOut();
-                                Navigator.pushNamed(context, '/');
-                              },
-                              text: "LOGOUT",
-                              color: context.resources.color.colorAccent,
-                              textColor: context.resources.color.textSecondary,
-                            )),
+                        child: Buttons(
+                          onTap: () {
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .logOut();
+                            Navigator.pushNamed(context, '/');
+                          },
+                          text: "LOGOUT",
+                          color: context.resources.color.colorAccent,
+                          textColor: context.resources.color.textSecondary,
+                        ),
                       ),
                     ],
                   ),

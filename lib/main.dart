@@ -71,7 +71,7 @@ class _AuthState extends State<Auth> {
           case Status.Uninitialized:
             return LoadingPage();
           case Status.Unauthenticated:
-            return Authenticate();
+            return Login();
           case Status.Authenticated:
             return Dashboard();
           default:
