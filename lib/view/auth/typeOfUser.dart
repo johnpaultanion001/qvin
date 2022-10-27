@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/styles/AppContextExtension.dart';
 import 'package:untitled/styles/widgets/labels.dart';
 import '../../../styles/widgets/buttons.dart';
+import '../../styles/widgets/logo.dart';
 import 'signUp.dart';
 
 class TypeOfUser extends StatefulWidget {
@@ -14,6 +15,7 @@ class TypeOfUser extends StatefulWidget {
 
 class _TypeOfUserState extends State<TypeOfUser> {
   int? _selectedValueIndex;
+  String? _selectedType;
   List<String> buttonText = [
     "ORG ADMIN",
     "LOCATION MANAGER",
@@ -28,6 +30,7 @@ class _TypeOfUserState extends State<TypeOfUser> {
       onTap: () {
         setState(() {
           _selectedValueIndex = index;
+          _selectedType = buttonText[index];
         });
       },
       child: Padding(
@@ -57,92 +60,113 @@ class _TypeOfUserState extends State<TypeOfUser> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            decoration: BoxDecoration(
-              color: context.resources.color.textSecondary,
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(40), topLeft: Radius.circular(40)),
-              boxShadow: [
-                BoxShadow(
-                  color: context.resources.color.boxShadow,
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.resources.color.colorPrimary,
+        ),
+        height: double.maxFinite,
+        width: double.maxFinite,
+        child: Column(
+          children: [
+            Container(
+              height: 164,
+              width: double.maxFinite,
+              child: const Logo(),
             ),
-            height: 500,
-            width: double.maxFinite,
-            child: Padding(
-              padding: const EdgeInsets.all(18),
-              child: Center(
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Labels.lg(
-                            text: "Type Of Users",
-                            textColor: context.resources.color.textPrimary,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 6,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ...List.generate(
-                                buttonText.length,
-                                (index) => button(
-                                  index: index,
-                                  text: buttonText[index],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 0),
-                              child: Buttons(
-                                onTap: _signup,
-                                text: "CONTINUE",
-                                color: context.resources.color.colorAccent,
-                                textColor:
-                                    context.resources.color.textSecondary,
-                              )),
-                        ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: context.resources.color.textSecondary,
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        topLeft: Radius.circular(40)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: context.resources.color.boxShadow,
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
                       ),
                     ],
+                  ),
+                  height: double.maxFinite,
+                  width: double.maxFinite,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: Center(
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: Column(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Labels.lg(
+                                  text: "Type Of Users",
+                                  textColor:
+                                      context.resources.color.textPrimary,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    ...List.generate(
+                                      buttonText.length,
+                                      (index) => button(
+                                        index: index,
+                                        text: buttonText[index],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 0),
+                                    child: Buttons(
+                                      onTap: _signup,
+                                      text: "CONTINUE",
+                                      color:
+                                          context.resources.color.colorAccent,
+                                      textColor:
+                                          context.resources.color.textSecondary,
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
   void _signup() async {
+    print(_selectedType);
     final backButton = await Navigator.of(context).push<bool?>(
       PageRouteBuilder(
         opaque: false,
         barrierDismissible: true,
-        pageBuilder: (_, __, ___) => SignUp(),
+        pageBuilder: (_, __, ___) => SignUp(type_of_user: _selectedType!),
       ),
     );
     if (backButton == null || backButton == false) {

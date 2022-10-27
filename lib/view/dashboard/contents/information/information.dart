@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled/providers/auth.dart';
 import 'package:untitled/styles/AppContextExtension.dart';
 
 import '../../../../providers/informationProvider.dart';

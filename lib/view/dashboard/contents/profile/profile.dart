@@ -1,16 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled/styles/AppContextExtension.dart';
+import '../../../../models/user_model.dart';
+import '../../../../providers/auth.dart';
+import '../../../../providers/profileProvider.dart';
 import '../../../../styles/widgets/buttons.dart';
 import '../../../../styles/widgets/labels.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  const Profile({
+    super.key,
+  });
 
   @override
   State<Profile> createState() => _InformationState();
 }
 
 class _InformationState extends State<Profile> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: Provider.of<ProfileProvider>(context, listen: false).loadUsers(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Consumer<ProfileProvider>(
+            builder: (context, provider, child) {
+              final user = provider.user[0];
+              return ProfileWidget(
+                user: user,
+              );
+            },
+          );
+        }
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class ProfileWidget extends StatelessWidget {
+  const ProfileWidget({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
+  final UserModel user;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,7 +104,7 @@ class _InformationState extends State<Profile> {
                               ),
                               const SizedBox(height: 10),
                               Labels.md(
-                                text: 'John Doe',
+                                text: user.first_name + ' ' + user.last_name,
                                 textColor: context.resources.color.colorDark,
                               ),
                               const SizedBox(height: 10),
@@ -129,7 +168,7 @@ class _InformationState extends State<Profile> {
                               ),
                               const SizedBox(height: 10),
                               Labels.md(
-                                text: 'johndoe@gmail.com',
+                                text: user.email,
                                 textColor: context.resources.color.colorDark,
                               ),
                               const SizedBox(height: 10),
@@ -142,7 +181,12 @@ class _InformationState extends State<Profile> {
                         child: Padding(
                             padding: const EdgeInsets.all(1),
                             child: Buttons(
-                              onTap: () {},
+                              onTap: () {
+                                Provider.of<AuthProvider>(context,
+                                        listen: false)
+                                    .logOut();
+                                Navigator.pushNamed(context, '/');
+                              },
                               text: "LOGOUT",
                               color: context.resources.color.colorAccent,
                               textColor: context.resources.color.textSecondary,

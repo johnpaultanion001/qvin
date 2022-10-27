@@ -53,22 +53,10 @@ class _AuthenticateState extends State<Authenticate> {
   }
 
   void _showLogin() async {
-    await Navigator.of(context).push(
-      PageRouteBuilder(
-        opaque: false,
-        barrierDismissible: true,
-        pageBuilder: (_, __, ___) => const Login(),
-      ),
-    );
+    Navigator.pushNamed(context, '/login');
   }
 
   void _showSignUp() async {
-    await Navigator.of(context).push(
-      PageRouteBuilder(
-        opaque: false,
-        barrierDismissible: true,
-        pageBuilder: (_, __, ___) => const TypeOfUser(),
-      ),
-    );
+    Navigator.pushNamed(context, '/register');
   }
 }

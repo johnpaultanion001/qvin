@@ -39,6 +39,7 @@ INJECTED from C:\flutter_project\qvin\android\app\src\main\AndroidManifest.xml:1
 MERGED from C:\flutter_project\qvin\android\app\src\main\AndroidManifest.xml:1:1-38:12
 MERGED from [:shared_preferences_android] C:\flutter_project\qvin\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:hexcolor] C:\flutter_project\qvin\build\hexcolor\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:sqflite] C:\flutter_project\qvin\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:qr_code_scanner] C:\flutter_project\qvin\build\qr_code_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:location] C:\flutter_project\qvin\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-20:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Flutter\.gradle\caches\transforms-3\246793f755122fe14a5802655438cb75\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
@@ -121,6 +122,8 @@ MERGED from [:shared_preferences_android] C:\flutter_project\qvin\build\shared_p
 MERGED from [:shared_preferences_android] C:\flutter_project\qvin\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:hexcolor] C:\flutter_project\qvin\build\hexcolor\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:hexcolor] C:\flutter_project\qvin\build\hexcolor\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] C:\flutter_project\qvin\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] C:\flutter_project\qvin\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:qr_code_scanner] C:\flutter_project\qvin\build\qr_code_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-9:67
 MERGED from [:qr_code_scanner] C:\flutter_project\qvin\build\qr_code_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-9:67
 MERGED from [:location] C:\flutter_project\qvin\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41

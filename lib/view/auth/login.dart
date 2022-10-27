@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled/styles/AppContextExtension.dart';
 import 'package:untitled/styles/widgets/labels.dart';
-import 'package:untitled/utils/loading.dart';
 import '../../../styles/styles.dart';
 import '../../../styles/widgets/buttons.dart';
 import '../../../utils/validate.dart';
-import '../dashboard/dashboard.dart';
+import '../../providers/auth.dart';
+import '../../styles/widgets/logo.dart';
 import 'password/resetPasswordLink.dart';
 
 class Login extends StatefulWidget {
@@ -17,40 +18,40 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool isLoading = false;
-
   late String email;
   late String password;
   String message = '';
 
   Future<void> submit() async {
-    if (_formKey.currentState!.validate()) {
-    } else {
-      _formKey.currentState!.validate();
-      print(email + password);
-      setState(() => isLoading = true);
-      await Future.delayed(const Duration(seconds: 3), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Dashboard(
-                    selectedItem: 0,
-                  )),
-        );
-      });
-      setState(() => isLoading = false);
+    final form = _formKey.currentState;
+    if (form != null) {
+      print('LOGIN VIEW');
+      form.validate();
+      await Provider.of<AuthProvider>(context, listen: false)
+          .login(email, password);
+      Navigator.pushNamed(context, '/');
     }
   }
 
   @override
-  Widget build(BuildContext context) => isLoading
-      ? const LoadingPage()
-      : Stack(
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.resources.color.colorPrimary,
+        ),
+        height: double.maxFinite,
+        width: double.maxFinite,
+        child: Column(
           children: [
+            Container(
+              height: 164,
+              width: double.maxFinite,
+              child: const Logo(),
+            ),
+            const SizedBox(height: 20),
             Expanded(
-              flex: 12,
               child: Align(
-                alignment: Alignment.bottomCenter,
                 child: Container(
                   decoration: BoxDecoration(
                     color: context.resources.color.textSecondary,
@@ -66,73 +67,77 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                  height: 500,
                   width: double.maxFinite,
-                  child: Padding(
-                    padding: const EdgeInsets.all(18),
-                    child: Material(
-                      type: MaterialType.transparency,
-                      child: Form(
-                        key: _formKey,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Labels.lg(
-                                    text: 'Login',
+                  height: double.maxFinite,
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(18),
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: Form(
+                          key: _formKey,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Labels.lg(
+                                      text: 'Login',
+                                      textColor:
+                                          context.resources.color.textPrimary,
+                                    )),
+                                const Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Labels.sm(text: "Lets get started")),
+                                const SizedBox(height: 60),
+                                TextFormField(
+                                    decoration: Styles.input.copyWith(
+                                      hintText: 'Email Address',
+                                      labelText: 'Email Address',
+                                    ),
+                                    validator: (value) {
+                                      email = value!.trim();
+                                      return Validate.validateEmail(value);
+                                    }),
+                                const SizedBox(height: 30),
+                                TextFormField(
+                                    obscureText: true,
+                                    decoration: Styles.input.copyWith(
+                                      hintText: 'Password',
+                                      labelText: 'Password',
+                                    ),
+                                    validator: (value) {
+                                      password = value!.trim();
+                                      return Validate.requiredField(
+                                          value, 'Password is required.');
+                                    }),
+                                const SizedBox(height: 50),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: InkWell(
+                                    onTap: _resetPasswordLink,
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child:
+                                          Labels.sm(text: "Forgot Password?"),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 0),
+                                  child: Buttons(
+                                    onTap: submit,
+                                    text: "LOGIN",
+                                    color: context.resources.color.colorAccent,
                                     textColor:
-                                        context.resources.color.textPrimary,
-                                  )),
-                              const SizedBox(height: 10),
-                              const Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Labels.sm(text: "Lets get started")),
-                              const SizedBox(height: 10),
-                              TextFormField(
-                                  decoration: Styles.input.copyWith(
-                                    hintText: 'Email Address',
-                                  ),
-                                  validator: (value) {
-                                    email = value!.trim();
-                                    return Validate.validateEmail(value);
-                                  }),
-                              const SizedBox(height: 45),
-                              TextFormField(
-                                  obscureText: true,
-                                  decoration: Styles.input.copyWith(
-                                    hintText: 'Password',
-                                  ),
-                                  validator: (value) {
-                                    password = value!.trim();
-                                    return Validate.requiredField(
-                                        value, 'Password is required.');
-                                  }),
-                              const SizedBox(height: 25),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: InkWell(
-                                  onTap: _resetPasswordLink,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Labels.sm(text: "Forgot Password?"),
+                                        context.resources.color.textSecondary,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 25),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 0),
-                                child: Buttons(
-                                  onTap: submit,
-                                  text: "LOGIN",
-                                  color: context.resources.color.colorAccent,
-                                  textColor:
-                                      context.resources.color.textSecondary,
-                                ),
-                              ),
-                              const SizedBox(height: 80),
-                            ],
+                                const SizedBox(height: 80),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -142,7 +147,10 @@ class _LoginState extends State<Login> {
               ),
             ),
           ],
-        );
+        ),
+      ),
+    );
+  }
 
   void _resetPasswordLink() async {
     final backButton = await Navigator.of(context).push<bool?>(

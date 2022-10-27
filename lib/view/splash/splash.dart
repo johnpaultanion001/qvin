@@ -28,21 +28,23 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: context.resources.color.colorPrimary),
-      child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 3000),
-        opacity: 1,
-        child: Center(
-          child: Hero(
-            tag: 'logo',
-            child: Container(
-              height: 250.0,
-              width: 250.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                image: DecorationImage(
-                  image: AssetImage(context.resources.label.logo),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(color: context.resources.color.colorPrimary),
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 3000),
+          opacity: 1,
+          child: Center(
+            child: Hero(
+              tag: 'logo',
+              child: Container(
+                height: 250.0,
+                width: 250.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  image: DecorationImage(
+                    image: AssetImage(context.resources.label.logo),
+                  ),
                 ),
               ),
             ),
