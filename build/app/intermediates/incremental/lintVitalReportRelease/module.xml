@@ -1,0 +1,18 @@
+<lint-module
+    format="1"
+    dir="C:\flutter_project\qvin\android\app"
+    name=":app"
+    type="APP"
+    maven="android:app:"
+    gradle="7.1.2"
+    buildFolder="C:\flutter_project\qvin\build\app"
+    bootClassPath="C:\Users\Flutter\AppData\Local\Android\sdk\platforms\android-32\android.jar;C:\Users\Flutter\AppData\Local\Android\sdk\build-tools\30.0.3\core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-32">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

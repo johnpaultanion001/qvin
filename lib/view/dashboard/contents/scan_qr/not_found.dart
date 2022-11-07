@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
-import 'package:untitled/styles/widgets/labels.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
+import 'package:qvin/styles/widgets/labels.dart';
 
 import '../../../../styles/widgets/buttons.dart';
 import '../../../../styles/widgets/logo.dart';

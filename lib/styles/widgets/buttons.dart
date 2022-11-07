@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 
 class Buttons extends StatelessWidget {
   final String? text;
@@ -27,9 +27,13 @@ class Buttons extends StatelessWidget {
             color: color,
             borderRadius: BorderRadius.circular(32)),
         child: Center(
-          child: Text(text!,
-              style: TextStyle(
-                  color: textColor, fontWeight: FontWeight.bold, fontSize: 18)),
+          child: DefaultTextStyle(
+            style: TextStyle(
+                color: textColor, fontWeight: FontWeight.bold, fontSize: 18),
+            child: Text(
+              text!,
+            ),
+          ),
         ),
       ),
     );

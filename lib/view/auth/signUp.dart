@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 import '../../styles/styles.dart';
 import '../../styles/widgets/buttons.dart';
 import '../../styles/widgets/logo.dart';
@@ -26,9 +26,7 @@ class _SignUpState extends State<SignUp> {
   String message = '';
 
   Future<void> submit() async {
-    final form = _formKey.currentState;
-    if (form != null) {
-      form.validate();
+    if (_formKey.currentState!.validate()) {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => CreateProfile(
           typeOfUser: widget.typeOfUser,

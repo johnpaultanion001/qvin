@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 
 class BottomBar extends StatelessWidget {
   final Function(int)? onTap;

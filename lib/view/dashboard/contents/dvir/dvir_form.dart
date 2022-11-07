@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/view/dashboard/contents/dvir/widgets/trailer.dart';
-import 'package:untitled/view/dashboard/contents/dvir/widgets/truck.dart';
-import 'package:untitled/view/dashboard/contents/dvir/widgets/you_selected.dart';
+import 'package:qvin/view/dashboard/contents/dvir/widgets/trailer.dart';
+import 'package:qvin/view/dashboard/contents/dvir/widgets/truck.dart';
+import 'package:qvin/view/dashboard/contents/dvir/widgets/you_selected.dart';
 
 class DVIRForm extends StatefulWidget {
   const DVIRForm({super.key});

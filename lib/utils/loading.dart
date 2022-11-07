@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 
 import '../providers/auth.dart';
 

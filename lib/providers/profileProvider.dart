@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:untitled/models/user_model.dart';
+import 'package:qvin/models/user_model.dart';
 
 import '../db/database.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/providers/auth.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/providers/auth.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 
 import '../../../../providers/informationProvider.dart';
 import '../../../../styles/widgets/buttons.dart';

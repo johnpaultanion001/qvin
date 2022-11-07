@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
-import 'package:untitled/styles/widgets/labels.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
+import 'package:qvin/styles/widgets/labels.dart';
 import '../../providers/sliderProvider.dart';
 import '../../styles/widgets/buttons.dart';
 import '../../styles/widgets/logo.dart';
@@ -38,24 +38,25 @@ class _PermissionState extends State<Permission> {
     return Scaffold(
       body: Hero(
         tag: 'logo',
-        child: Column(
-          children: [
-            SizedBox(height: 110),
-            const Logo(),
-            Expanded(
-              child: PageView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _controller,
-                  scrollDirection: Axis.horizontal,
-                  onPageChanged: (value) {
-                    setState(() {
-                      currentIndex = value;
-                    });
-                  },
-                  itemCount: slides.length,
-                  itemBuilder: (context, index) {
-                    return Expanded(
-                      child: Column(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: const Logo(),
+              ),
+              Expanded(
+                child: PageView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _controller,
+                    scrollDirection: Axis.vertical,
+                    onPageChanged: (value) {
+                      setState(() {
+                        currentIndex = value;
+                      });
+                    },
+                    itemCount: slides.length,
+                    itemBuilder: (context, index) {
+                      return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
@@ -66,31 +67,32 @@ class _PermissionState extends State<Permission> {
                             ),
                           )
                         ],
-                      ),
-                    );
-                  }),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Buttons(
-                onTap: () {
-                  if (currentIndex == slides.length - 1) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Authenticate()),
-                    );
-                  }
-                  _controller.nextPage(
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeInOut);
-                },
-                text: slides[currentIndex].getTitle(),
-                color: context.resources.color.colorWhite,
-                textColor: context.resources.color.textPrimary,
+                      );
+                    }),
               ),
-            ),
-            SizedBox(height: 60)
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Buttons(
+                  onTap: () {
+                    if (currentIndex == slides.length - 1) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Authenticate()),
+                      );
+                    }
+                    _controller.nextPage(
+                      duration: Duration(milliseconds: 100),
+                      curve: Curves.easeInSine,
+                    );
+                  },
+                  text: slides[currentIndex].getTitle(),
+                  color: context.resources.color.colorWhite,
+                  textColor: context.resources.color.textPrimary,
+                ),
+              ),
+              SizedBox(height: 60)
+            ],
+          ),
         ),
       ),
       backgroundColor: context.resources.color.colorPrimary,

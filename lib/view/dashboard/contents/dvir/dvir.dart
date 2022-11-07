@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
-import 'package:untitled/view/dashboard/contents/dvir/dvir_form.dart';
-import 'package:untitled/view/dashboard/contents/dvir/dvir_visual.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
+import 'package:qvin/view/dashboard/contents/dvir/dvir_form.dart';
+import 'package:qvin/view/dashboard/contents/dvir/dvir_visual.dart';
 
 class DVIR extends StatefulWidget {
   int selectedItem;

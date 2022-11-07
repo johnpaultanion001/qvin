@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/models/informationModel.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
-import 'package:untitled/view/dashboard/contents/information/widgets/info_add_edit.dart';
+import 'package:qvin/models/informationModel.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
+import 'package:qvin/view/dashboard/contents/information/widgets/info_add_edit.dart';
 import '../../../../../styles/widgets/labels.dart';
 
 class InfoWidget extends StatelessWidget {

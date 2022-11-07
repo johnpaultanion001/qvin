@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:provider/provider.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 import '../../../styles/widgets/buttons.dart';
 import '../../../styles/widgets/logo.dart';
-import 'login.dart';
-import 'typeOfUser.dart';
+import '../../providers/auth.dart';
 
-class Authenticate extends StatefulWidget {
+class Authenticate extends StatelessWidget {
   const Authenticate({Key? key}) : super(key: key);
-  @override
-  State<Authenticate> createState() => _AuthenticateState();
-}
+  authReady(context) async {
+    Provider.of<AuthProvider>(context, listen: false).authReady();
+  }
 
-class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
+    authReady(context);
     return Scaffold(
       backgroundColor: context.resources.color.colorPrimary,
       body: SafeArea(
@@ -26,7 +26,9 @@ class _AuthenticateState extends State<Authenticate> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Buttons(
-                  onTap: _showSignUp,
+                  onTap: () {
+                    Navigator.pushNamed(context, '/register');
+                  },
                   text: "SIGNUP",
                   color: context.resources.color.colorAccent,
                   textColor: context.resources.color.textSecondary,
@@ -35,7 +37,9 @@ class _AuthenticateState extends State<Authenticate> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Buttons(
-                  onTap: _showLogin,
+                  onTap: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
                   text: "LOGIN",
                   color: context.resources.color.colorWhite,
                   textColor: context.resources.color.textPrimary,
@@ -50,13 +54,5 @@ class _AuthenticateState extends State<Authenticate> {
         )),
       ),
     );
-  }
-
-  void _showLogin() async {
-    Navigator.pushNamed(context, '/login');
-  }
-
-  void _showSignUp() async {
-    Navigator.pushNamed(context, '/register');
   }
 }

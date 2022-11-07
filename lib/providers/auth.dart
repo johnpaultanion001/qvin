@@ -2,8 +2,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../db/database.dart';
+import '../dio/dio_helper.dart';
 import '../utils/notification_text.dart';
 
 enum Status {
@@ -16,12 +16,15 @@ enum Status {
 
 class AuthProvider with ChangeNotifier {
   Status _status = Status.Splash;
+
   late String _token;
+  late int? _statusResponse;
   final SQLiteHelper _db = SQLiteHelper();
-  NotificationText _notification = NotificationText('');
+  NotificationText _notification = const NotificationText('');
 
   Status get status => _status;
   String get token => _token;
+  int? get statusResponse => _statusResponse;
   NotificationText get notification => _notification;
 
   initAuthProvider() async {
@@ -35,17 +38,22 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  authReady() async {
+    _status = Status.Unauthenticated;
+    notifyListeners();
+  }
+
   Future<bool> login(String email, String password) async {
-    const url = 'https://staging.app.dot-ready.com/api/qvin/login';
+    _status = Status.Authenticating;
+    notifyListeners();
     final data = {
       "email": email,
       "password": password,
     };
 
-    final dio = Dio();
     Response response;
     try {
-      response = await dio.post(url, data: data);
+      response = await DioHelper.dio.post('login', data: data);
       if (response.statusCode == 200) {
         print(response.data['data']['user']);
         _notification = const NotificationText(
@@ -62,11 +70,11 @@ class AuthProvider with ChangeNotifier {
         return true;
       }
     } on DioError catch (e) {
+      print(e.response!.statusCode);
       _notification = const NotificationText(
         'Wrong email or password',
       );
       _status = Status.Unauthenticated;
-      print(e);
       notifyListeners();
       return false;
     }
@@ -87,7 +95,6 @@ class AuthProvider with ChangeNotifier {
     String password,
     String typeOfUser,
   ) async {
-    final url = 'https://staging.app.dot-ready.com/api/qvin/signup';
     final data = {
       "first_name": firstName,
       "last_name": lastName,
@@ -96,10 +103,9 @@ class AuthProvider with ChangeNotifier {
       "type": typeOfUser,
     };
 
-    final dio = Dio();
     Response response;
     try {
-      response = await dio.post(url, data: data);
+      response = await DioHelper.dio.post('signup', data: data);
 
       if (response.statusCode == 200) {
         print(response.data['data']);
@@ -109,16 +115,16 @@ class AuthProvider with ChangeNotifier {
           'Sign in your newly created account',
           type: 'info',
         );
+        _statusResponse = response.statusCode;
         notifyListeners();
-        print(_status);
         return true;
       }
     } on DioError catch (e) {
       _notification = const NotificationText(
-        'Your email is already used, Try to sign up another email',
+        'The email has already been taken.',
       );
       _status = Status.Unauthenticated;
-      print(e);
+      _statusResponse = e.response?.statusCode;
       notifyListeners();
       return false;
     }

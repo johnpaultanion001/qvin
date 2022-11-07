@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 
 import '../../../../styles/widgets/buttons.dart';
 import '../../../../styles/widgets/labels.dart';

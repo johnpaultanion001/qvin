@@ -15,7 +15,7 @@ class Validate {
   /*
    * Returns an error message if email does not validate.
    */
-  static String validateEmail(String value) {
+  static String? validateEmail(String value) {
     String email = value.trim();
     if (email.isEmpty) {
       return 'Email is required.';
@@ -23,7 +23,7 @@ class Validate {
     if (!isEmail(email)) {
       return 'Valid email required.';
     }
-    return "";
+    return null;
   }
 
   /*
@@ -33,19 +33,19 @@ class Validate {
     if (value!.trim().isEmpty) {
       return message;
     }
-    return "";
+    return null;
   }
 
-  static String confirmPassword(String cpass, String pass) {
-    String confirm_password = cpass.trim();
+  static String? confirmPassword(String cpass, String pass) {
+    String confirmPassword = cpass.trim();
     String password = pass.trim();
 
-    if (confirm_password.isEmpty) {
+    if (confirmPassword.isEmpty) {
       return 'Password confirm is required.';
     }
-    if (confirm_password != password) {
+    if (confirmPassword != password) {
       return 'The confirm password confirmation does not match';
     }
-    return '';
+    return null;
   }
 }

@@ -4,5 +4,9 @@ class InformationModel {
   String title;
   DateTime createdAt;
 
-  InformationModel({this.image, required this.title, required this.createdAt});
+  InformationModel({
+    this.image,
+    required this.title,
+    required this.createdAt,
+  });
 }

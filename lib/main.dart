@@ -1,21 +1,23 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/providers/auth.dart';
-import 'package:untitled/providers/profileProvider.dart';
-import 'package:untitled/utils/loading.dart';
-import 'package:untitled/view/auth/authenticate.dart';
-import 'package:untitled/view/auth/login.dart';
-import 'package:untitled/view/auth/typeOfUser.dart';
-import 'package:untitled/view/dashboard/dashboard.dart';
-import 'package:untitled/view/splash/splash.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/providers/auth.dart';
+import 'package:qvin/providers/profileProvider.dart';
+import 'package:qvin/utils/loading.dart';
+import 'package:qvin/utils/loading_screen.dart';
+import 'package:qvin/view/auth/login.dart';
+import 'package:qvin/view/auth/typeOfUser.dart';
+import 'package:qvin/view/dashboard/dashboard.dart';
+import 'package:qvin/view/splash/splash.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 import 'db/database.dart';
+import 'dio/dio_helper.dart';
 import 'providers/informationProvider.dart';
 import 'providers/sliderProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DioHelper.init();
   await SQLite.init();
   runApp(MyApp());
 }
@@ -68,6 +70,8 @@ class _AuthState extends State<Auth> {
       builder: (context, user, child) {
         print(user.status);
         switch (user.status) {
+          case Status.Splash:
+            return Splash();
           case Status.Uninitialized:
             return LoadingPage();
           case Status.Unauthenticated:
@@ -75,13 +79,9 @@ class _AuthState extends State<Auth> {
           case Status.Authenticated:
             return Dashboard();
           default:
-            return Splash();
+            return LoadingScreen();
         }
       },
     );
-  }
-
-  Future<void> dashboard() async {
-    return print('test');
   }
 }

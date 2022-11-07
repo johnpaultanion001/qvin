@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 import '../../../../models/user_model.dart';
 import '../../../../providers/auth.dart';
 import '../../../../providers/profileProvider.dart';
@@ -42,13 +42,42 @@ class _InformationState extends State<Profile> {
   }
 }
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends StatefulWidget {
   const ProfileWidget({
     Key? key,
     required this.user,
   }) : super(key: key);
 
   final UserModel user;
+
+  @override
+  State<ProfileWidget> createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> {
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to logout?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Provider.of<AuthProvider>(context, listen: false).logOut();
+                  Navigator.pushNamed(context, '/');
+                },
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +133,9 @@ class ProfileWidget extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Labels.md(
-                                text: user.first_name + ' ' + user.last_name,
+                                text: widget.user.first_name +
+                                    ' ' +
+                                    widget.user.last_name,
                                 textColor: context.resources.color.colorDark,
                               ),
                               const SizedBox(height: 10),
@@ -168,7 +199,7 @@ class ProfileWidget extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Labels.md(
-                                text: user.email,
+                                text: widget.user.email,
                                 textColor: context.resources.color.colorDark,
                               ),
                               const SizedBox(height: 10),
@@ -179,11 +210,7 @@ class ProfileWidget extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: Buttons(
-                          onTap: () {
-                            Provider.of<AuthProvider>(context, listen: false)
-                                .logOut();
-                            Navigator.pushNamed(context, '/');
-                          },
+                          onTap: _onWillPop,
                           text: "LOGOUT",
                           color: context.resources.color.colorAccent,
                           textColor: context.resources.color.textSecondary,

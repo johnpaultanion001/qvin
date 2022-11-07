@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
-import 'package:untitled/styles/widgets/labels.dart';
-import 'package:untitled/view/dashboard/contents/dvir/widgets/select_problem.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
+import 'package:qvin/styles/widgets/labels.dart';
+import 'package:qvin/view/dashboard/contents/dvir/widgets/select_problem.dart';
 
 class TruckWidget extends StatelessWidget {
   const TruckWidget({super.key});

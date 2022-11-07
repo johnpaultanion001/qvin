@@ -2,10 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
-import 'package:untitled/styles/widgets/labels.dart';
-import 'package:untitled/view/dashboard/contents/dvir/dvir_terms.dart';
-import 'package:untitled/view/dashboard/contents/scan_qr/not_found.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
+import 'package:qvin/styles/widgets/labels.dart';
+import 'package:qvin/view/dashboard/contents/dvir/dvir_terms.dart';
+import 'package:qvin/view/dashboard/contents/scan_qr/not_found.dart';
 
 import '../../../../utils/loading.dart';
 
@@ -131,7 +131,7 @@ class _ScanQRState extends State<ScanQR> {
     await Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const DVIRTerms()),
+        MaterialPageRoute(builder: (context) => const TrailerNotFound()),
       );
     });
     setState(() => isLoading = false);

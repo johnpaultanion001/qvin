@@ -1,4 +1,4 @@
-name: untitled
+name: qvin
 description: A new Flutter project.
 
 version: 1.0.0+1
@@ -23,6 +23,7 @@ dependencies:
   carousel_slider: ^4.1.1
   sqflite: ^2.0.0+3
   intl: ^0.17.0
+  animations: ^2.0.7
 
 dev_dependencies:
   flutter_test:

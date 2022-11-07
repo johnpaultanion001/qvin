@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
 
 import '../../../../../styles/widgets/labels.dart';
 

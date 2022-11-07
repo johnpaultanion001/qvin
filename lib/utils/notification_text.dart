@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/widgets/labels.dart';
+import 'package:qvin/styles/widgets/labels.dart';
 
 class NotificationText extends StatelessWidget {
   final String? text;

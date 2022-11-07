@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/styles/AppContextExtension.dart';
-import 'package:untitled/styles/widgets/labels.dart';
+import 'package:qvin/styles/AppContextExtension.dart';
+import 'package:qvin/styles/widgets/labels.dart';
 import '../../../../../styles/styles.dart';
 import '../../../../../styles/widgets/buttons.dart';
 

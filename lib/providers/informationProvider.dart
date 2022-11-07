@@ -1,5 +1,4 @@
 // ignore_for_file: file_names, prefer_final_fields
-
 import 'package:flutter/cupertino.dart';
 import '../../../models/informationModel.dart';
 

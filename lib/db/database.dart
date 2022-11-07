@@ -2,7 +2,6 @@
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../models/user_model.dart';
 
 class SQLite {
@@ -94,4 +93,5 @@ class SQLiteHelper {
   //     whereArgs: [id],
   //   );
   // }
+
 }
