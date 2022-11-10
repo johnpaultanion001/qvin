@@ -23,27 +23,21 @@ class Authenticate extends StatelessWidget {
             children: [
               const Logo(),
               const SizedBox(height: 160),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Buttons(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  text: "SIGNUP",
-                  color: context.resources.color.colorAccent,
-                  textColor: context.resources.color.textSecondary,
-                ),
+              Buttons(
+                onTap: () {
+                  Navigator.pushNamed(context, '/register');
+                },
+                text: "SIGNUP",
+                color: context.resources.color.colorAccent,
+                textColor: context.resources.color.textSecondary,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Buttons(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  text: "LOGIN",
-                  color: context.resources.color.colorWhite,
-                  textColor: context.resources.color.textPrimary,
-                ),
+              Buttons(
+                onTap: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                text: "LOGIN",
+                color: context.resources.color.colorWhite,
+                textColor: context.resources.color.textPrimary,
               ),
               const Expanded(
                 flex: 1,

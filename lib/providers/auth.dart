@@ -89,15 +89,13 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<bool> signup(
-    String firstName,
-    String lastName,
+    String displayName,
     String email,
     String password,
     String typeOfUser,
   ) async {
     final data = {
-      "first_name": firstName,
-      "last_name": lastName,
+      "display_name": displayName,
       "email": email,
       "password": password,
       "type": typeOfUser,

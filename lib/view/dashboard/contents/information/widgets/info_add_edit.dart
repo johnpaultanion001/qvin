@@ -110,16 +110,17 @@ class _InfoAddEditState extends State<InfoAddEdit> {
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Buttons(
-                  onTap: () {},
-                  text: "SAVE",
-                  color: context.resources.color.colorAccent,
-                  textColor: context.resources.color.textSecondary,
-                )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Expanded(
+              flex: 1,
+              child: Buttons(
+                onTap: () {},
+                text: "SAVE",
+                color: context.resources.color.colorAccent,
+                textColor: context.resources.color.textSecondary,
+              ),
+            ),
           ),
         ],
       ),

@@ -17,8 +17,6 @@ class _TypeOfUserState extends State<TypeOfUser> {
   int? _selectedValueIndex;
   String? _selectedType;
   List<String> buttonText = [
-    "ORG ADMIN",
-    "LOCATION MANAGER",
     "DRIVER",
     "MECHANIC",
     "POLICE OFFICER",
@@ -69,53 +67,66 @@ class _TypeOfUserState extends State<TypeOfUser> {
         width: double.maxFinite,
         child: Column(
           children: [
-            Container(
+            const SizedBox(
               height: 164,
               width: double.maxFinite,
-              child: const Logo(),
+              child: Logo(),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: context.resources.color.textSecondary,
-                    borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(40),
-                        topLeft: Radius.circular(40)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: context.resources.color.boxShadow,
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  height: double.maxFinite,
-                  width: double.maxFinite,
-                  child: Padding(
-                    padding: const EdgeInsets.all(18),
-                    child: Center(
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: Column(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Align(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.resources.color.textSecondary,
+                  borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(40),
+                      topLeft: Radius.circular(40)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: context.resources.color.boxShadow,
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                height: double.maxFinite,
+                width: double.maxFinite,
+                child: Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Center(
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Stack(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () =>
+                                          Navigator.pushNamed(context, '/auth'),
+                                      child: const Icon(Icons.arrow_back,
+                                          size: 30)),
+                                  const Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text("Type Of User",
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue)),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              const Align(
                                 alignment: Alignment.topLeft,
-                                child: Labels.lg(
-                                  text: "Type Of Users",
-                                  textColor:
-                                      context.resources.color.textPrimary,
+                                child: Labels.sm(
+                                  text:
+                                      "Please select what you will be doing with QVIN and your experience will be customized.",
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 6,
-                              child: SingleChildScrollView(
+                              const SizedBox(height: 20),
+                              SingleChildScrollView(
                                 child: Column(
                                   children: [
                                     ...List.generate(
@@ -128,26 +139,18 @@ class _TypeOfUserState extends State<TypeOfUser> {
                                   ],
                                 ),
                               ),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Buttons(
+                              onTap: _signup,
+                              text: "CONTINUE",
+                              color: context.resources.color.colorAccent,
+                              textColor: context.resources.color.textSecondary,
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 0),
-                                    child: Buttons(
-                                      onTap: _signup,
-                                      text: "CONTINUE",
-                                      color:
-                                          context.resources.color.colorAccent,
-                                      textColor:
-                                          context.resources.color.textSecondary,
-                                    )),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

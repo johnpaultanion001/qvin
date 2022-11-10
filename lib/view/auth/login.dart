@@ -27,7 +27,6 @@ class _LoginState extends State<Login> {
   Future<void> submit() async {
     if (_formKey.currentState!.validate()) {
       setState(() => isLoading = true);
-      print('LOGIN VIEW');
       await Provider.of<AuthProvider>(context, listen: false)
           .login(email, password);
       Navigator.pushNamed(context, '/');
@@ -48,10 +47,10 @@ class _LoginState extends State<Login> {
               width: double.maxFinite,
               child: Column(
                 children: [
-                  Container(
+                  const SizedBox(
                     height: 164,
                     width: double.maxFinite,
-                    child: const Logo(),
+                    child: Logo(),
                   ),
                   const SizedBox(height: 20),
                   Expanded(
@@ -83,13 +82,24 @@ class _LoginState extends State<Login> {
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: <Widget>[
-                                      Align(
-                                          alignment: Alignment.topLeft,
-                                          child: Labels.lg(
-                                            text: 'Login',
-                                            textColor: context
-                                                .resources.color.textPrimary,
-                                          )),
+                                      Row(
+                                        children: [
+                                          InkWell(
+                                              onTap: () => Navigator.pushNamed(
+                                                  context, '/auth'),
+                                              child: const Icon(
+                                                  Icons.arrow_back,
+                                                  size: 30)),
+                                          const Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text("Login",
+                                                style: TextStyle(
+                                                    fontSize: 30,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.blue)),
+                                          ),
+                                        ],
+                                      ),
                                       const Align(
                                           alignment: Alignment.topLeft,
                                           child: Labels.sm(
@@ -130,7 +140,10 @@ class _LoginState extends State<Login> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           InkWell(
-                                            //onTap: _resetPasswordLink,
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  '/reset_password_link');
+                                            },
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(10.0),
@@ -141,35 +154,16 @@ class _LoginState extends State<Login> {
                                               ),
                                             ),
                                           ),
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                  context, '/register');
-                                            },
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Labels.sm(
-                                                text: "Create Account?",
-                                                textColor: context.resources
-                                                    .color.textPrimary,
-                                              ),
-                                            ),
-                                          ),
                                         ],
                                       ),
                                       const SizedBox(height: 20),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 0),
-                                        child: Buttons(
-                                          onTap: submit,
-                                          text: "LOGIN",
-                                          color: context
-                                              .resources.color.colorAccent,
-                                          textColor: context
-                                              .resources.color.textSecondary,
-                                        ),
+                                      Buttons(
+                                        onTap: submit,
+                                        text: "LOGIN",
+                                        color:
+                                            context.resources.color.colorAccent,
+                                        textColor: context
+                                            .resources.color.textSecondary,
                                       ),
                                       const SizedBox(height: 80),
                                     ],
@@ -186,18 +180,5 @@ class _LoginState extends State<Login> {
               ),
             ),
     );
-  }
-
-  void _resetPasswordLink() async {
-    final backButton = await Navigator.of(context).push<bool?>(
-      PageRouteBuilder(
-        opaque: false,
-        barrierDismissible: true,
-        pageBuilder: (_, __, ___) => const ResetPasswordLink(),
-      ),
-    );
-    if (backButton == null || backButton == false) {
-      if (mounted) Navigator.of(context).pop();
-    }
   }
 }

@@ -5,7 +5,10 @@ import 'package:qvin/providers/auth.dart';
 import 'package:qvin/providers/profileProvider.dart';
 import 'package:qvin/utils/loading.dart';
 import 'package:qvin/utils/loading_screen.dart';
+import 'package:qvin/view/auth/authenticate.dart';
 import 'package:qvin/view/auth/login.dart';
+import 'package:qvin/view/auth/password/resetPassword.dart';
+import 'package:qvin/view/auth/password/resetPasswordLink.dart';
 import 'package:qvin/view/auth/typeOfUser.dart';
 import 'package:qvin/view/dashboard/dashboard.dart';
 import 'package:qvin/view/splash/splash.dart';
@@ -47,7 +50,10 @@ class MyApp extends StatelessWidget {
           '/': (context) => const Auth(),
           '/splash': (context) => const Splash(),
           '/loading': (context) => const LoadingPage(),
+          '/auth': (context) => Authenticate(),
           '/login': (context) => Login(),
+          '/reset_password_link': (context) => ResetPasswordLink(),
+          '/reset_password': (context) => ResetPassword(),
           '/register': (context) => TypeOfUser(),
           '/dashboard': (context) => Dashboard(),
         },

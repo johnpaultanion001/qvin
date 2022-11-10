@@ -9,7 +9,7 @@ class Labels extends StatelessWidget {
     Key? key,
     this.text,
     this.textColor = Colors.black,
-    this.fontSize = 12,
+    this.fontSize = 16,
   }) : super(key: key);
 
   const Labels.md({
@@ -36,6 +36,7 @@ class Labels extends StatelessWidget {
         child: Text(
           text!,
           softWrap: true,
+          textAlign: TextAlign.center,
         ));
   }
 }

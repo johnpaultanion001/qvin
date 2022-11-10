@@ -14,8 +14,7 @@ class SQLite {
     await db.execute('''
       CREATE TABLE $tableUser ( 
         ${UserField.id} $idType, 
-        ${UserField.first_name} $textType,
-        ${UserField.last_name} $textType,
+        ${UserField.display_name} $textType,
         ${UserField.email} $textType,
         ${UserField.type} $textType
         )

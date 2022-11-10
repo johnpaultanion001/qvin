@@ -24,7 +24,14 @@ class InfoWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: Container(
-          color: Colors.white,
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: context.resources.color.boxShadow,
+                width: 3.0,
+              ),
+            ),
+          ),
           padding: const EdgeInsets.all(20),
           child: Row(
             children: [
@@ -47,9 +54,7 @@ class InfoWidget extends StatelessWidget {
                       text: info.title,
                       textColor: context.resources.color.textPrimary,
                     ),
-                    Container(
-                      child: const Labels.sm(text: "Oct 10, 2022"),
-                    ),
+                    const Labels.sm(text: "Oct 10, 2022"),
                   ],
                 ),
               ),

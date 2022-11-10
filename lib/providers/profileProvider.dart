@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:qvin/models/user_model.dart';
-
 import '../db/database.dart';
 
 class ProfileProvider extends ChangeNotifier {

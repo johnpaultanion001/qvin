@@ -6,6 +6,9 @@ import 'package:qvin/styles/AppContextExtension.dart';
 import '../../../../styles/widgets/buttons.dart';
 import '../../../../styles/widgets/labels.dart';
 import '../../../../styles/widgets/textField.dart';
+import '../../../styles/styles.dart';
+import '../../../styles/widgets/logo.dart';
+import '../../../utils/validate.dart';
 import 'resetPassword.dart';
 
 class ResetPasswordLink extends StatefulWidget {
@@ -16,74 +19,113 @@ class ResetPasswordLink extends StatefulWidget {
 }
 
 class _ResetPasswordLinkState extends State<ResetPasswordLink> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late String email;
+  Future<void> sendLink() async {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushNamed(context, '/reset_password');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            decoration: BoxDecoration(
-              color: context.resources.color.textSecondary,
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(40), topLeft: Radius.circular(40)),
-              boxShadow: [
-                BoxShadow(
-                  color: context.resources.color.boxShadow,
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.resources.color.colorPrimary,
+        ),
+        height: double.maxFinite,
+        width: double.maxFinite,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 164,
+              width: double.maxFinite,
+              child: Logo(),
             ),
-            height: 500,
-            width: double.maxFinite,
-            child: Padding(
-              padding: const EdgeInsets.all(18),
-              child: Center(
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 25),
-                      Row(
-                        children: [
-                          InkWell(
-                              onTap: () => Navigator.of(context).pop(true),
-                              child: const Icon(Icons.arrow_back, size: 30)),
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Labels.lg(
-                                text: 'Reset Password',
-                                textColor: context.resources.color.textPrimary,
-                              )),
-                        ],
+            const SizedBox(height: 20),
+            Expanded(
+              child: Align(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: context.resources.color.textSecondary,
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        topLeft: Radius.circular(40)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: context.resources.color.boxShadow,
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
                       ),
-                      const SizedBox(height: 10),
-                      const Align(
-                          alignment: Alignment.topLeft,
-                          child: Text("Reset Password")),
-                      const SizedBox(height: 60),
-                      const TextFields.text(
-                        hintText: 'Email Address',
-                      ),
-                      const SizedBox(height: 70),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 0),
-                          child: Buttons(
-                            onTap: _resetPassword,
-                            text: "SEND LINK",
-                            color: context.resources.color.colorAccent,
-                            textColor: context.resources.color.textSecondary,
-                          )),
                     ],
+                  ),
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(18),
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: Form(
+                          key: _formKey,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    InkWell(
+                                        onTap: () => Navigator.pushNamed(
+                                            context, '/login'),
+                                        child: const Icon(Icons.arrow_back,
+                                            size: 30)),
+                                    const Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text("Reset Password",
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.blue)),
+                                    ),
+                                  ],
+                                ),
+                                const Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Labels.sm(
+                                        text:
+                                            "Enter your email address and we'll send you a password reset email.")),
+                                const SizedBox(height: 100),
+                                TextFormField(
+                                  decoration: Styles.input.copyWith(
+                                    labelText: 'Email Address',
+                                  ),
+                                  validator: (value) {
+                                    email = value!.trim();
+                                    return Validate.validateEmail(value);
+                                  },
+                                ),
+                                const SizedBox(height: 130),
+                                Buttons(
+                                  onTap: sendLink,
+                                  text: "Send Link",
+                                  color: context.resources.color.colorAccent,
+                                  textColor:
+                                      context.resources.color.textSecondary,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 

@@ -48,7 +48,7 @@ class _PermissionState extends State<Permission> {
                 child: PageView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     controller: _controller,
-                    scrollDirection: Axis.vertical,
+                    scrollDirection: Axis.horizontal,
                     onPageChanged: (value) {
                       setState(() {
                         currentIndex = value;
@@ -61,34 +61,35 @@ class _PermissionState extends State<Permission> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(3.0),
-                            child: Labels.md(
-                              text: slides[index].getDescription(),
-                              textColor: context.resources.color.textSecondary,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Labels.md(
+                                text: slides[index].getDescription(),
+                                textColor:
+                                    context.resources.color.textSecondary,
+                              ),
                             ),
                           )
                         ],
                       );
                     }),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Buttons(
-                  onTap: () {
-                    if (currentIndex == slides.length - 1) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => Authenticate()),
-                      );
-                    }
-                    _controller.nextPage(
-                      duration: Duration(milliseconds: 100),
-                      curve: Curves.easeInSine,
+              Buttons(
+                onTap: () {
+                  if (currentIndex == slides.length - 1) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Authenticate()),
                     );
-                  },
-                  text: slides[currentIndex].getTitle(),
-                  color: context.resources.color.colorWhite,
-                  textColor: context.resources.color.textPrimary,
-                ),
+                  }
+                  _controller.nextPage(
+                    duration: Duration(milliseconds: 100),
+                    curve: Curves.easeInSine,
+                  );
+                },
+                text: slides[currentIndex].getTitle(),
+                color: context.resources.color.colorWhite,
+                textColor: context.resources.color.textPrimary,
               ),
               SizedBox(height: 60)
             ],

@@ -41,14 +41,18 @@ class _InformationState extends State<Information> {
                   },
                 ),
               ),
-              Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Buttons(
-                    onTap: () {},
-                    text: "CALL OWNER/LOC MGR",
-                    color: context.resources.color.colorAccent,
-                    textColor: context.resources.color.textSecondary,
-                  )),
+              Buttons(
+                onTap: () {},
+                text: "NOTIFY OWNER/LOC MGR",
+                color: context.resources.color.colorAccent,
+                textColor: context.resources.color.textSecondary,
+              ),
+              Buttons(
+                onTap: () {},
+                text: "CALL OWNER/LOC MGR",
+                color: context.resources.color.colorAccent,
+                textColor: context.resources.color.textSecondary,
+              ),
             ],
           );
   }
