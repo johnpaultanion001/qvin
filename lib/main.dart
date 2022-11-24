@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qvin/providers/auth.dart';
+import 'package:qvin/providers/dashboardProvider.dart';
 import 'package:qvin/providers/profileProvider.dart';
 import 'package:qvin/utils/loading.dart';
 import 'package:qvin/utils/loading_screen.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (create) => SliderProvider()),
         ChangeNotifierProvider(create: (create) => InfomationProvider()),
         ChangeNotifierProvider(create: (create) => ProfileProvider()),
+        ChangeNotifierProvider(create: (create) => DashboardProvider()),
       ],
       child: MaterialApp(
         title: title,
@@ -74,7 +76,6 @@ class _AuthState extends State<Auth> {
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
       builder: (context, user, child) {
-        print(user.status);
         switch (user.status) {
           case Status.Splash:
             return Splash();

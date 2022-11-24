@@ -35,5 +35,6 @@ class Styles {
     ),
     hintStyle: TextStyle(fontFamily: "WorkSansLight"),
     filled: true,
+    fillColor: Colors.white,
   );
 }

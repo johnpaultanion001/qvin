@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:qvin/styles/AppContextExtension.dart';
 import '../../../styles/widgets/buttons.dart';
 import '../../../styles/widgets/logo.dart';
-import '../../providers/auth.dart';
 
 class Authenticate extends StatelessWidget {
   const Authenticate({Key? key}) : super(key: key);
-  authReady(context) async {
-    Provider.of<AuthProvider>(context, listen: false).authReady();
-  }
 
   @override
   Widget build(BuildContext context) {
-    authReady(context);
     return Scaffold(
       backgroundColor: context.resources.color.colorPrimary,
       body: SafeArea(
@@ -41,6 +35,7 @@ class Authenticate extends StatelessWidget {
               ),
               const Expanded(
                 flex: 1,
+
                 child: SizedBox(height: 150),
               ),
             ],
@@ -50,3 +45,4 @@ class Authenticate extends StatelessWidget {
     );
   }
 }
+ 

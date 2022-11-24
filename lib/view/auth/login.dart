@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qvin/styles/AppContextExtension.dart';
 import 'package:qvin/styles/widgets/labels.dart';
 import 'package:qvin/utils/loading_screen.dart';
+import 'package:qvin/view/auth/profile.dart';
 import '../../../styles/styles.dart';
 import '../../../styles/widgets/buttons.dart';
 import '../../../utils/validate.dart';
@@ -25,11 +26,22 @@ class _LoginState extends State<Login> {
   bool isLoading = false;
 
   Future<void> submit() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     if (_formKey.currentState!.validate()) {
       setState(() => isLoading = true);
-      await Provider.of<AuthProvider>(context, listen: false)
-          .login(email, password);
-      Navigator.pushNamed(context, '/');
+      await authProvider.login(email, password);
+      if (authProvider.isProfile == true) {
+        Navigator.pushNamed(context, '/');
+      } else {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CreateProfile(
+              typeOfUser: authProvider.typeOfUser,
+              email: email,
+            ),
+          ),
+        );
+      }
       setState(() => isLoading = false);
     }
   }
@@ -72,102 +84,98 @@ class _LoginState extends State<Login> {
                         ),
                         width: double.maxFinite,
                         height: double.maxFinite,
-                        child: Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(18),
-                            child: Material(
-                              type: MaterialType.transparency,
-                              child: Form(
-                                key: _formKey,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: [
-                                          InkWell(
-                                              onTap: () => Navigator.pushNamed(
-                                                  context, '/auth'),
-                                              child: const Icon(
-                                                  Icons.arrow_back,
-                                                  size: 30)),
-                                          const Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text("Login",
-                                                style: TextStyle(
-                                                    fontSize: 30,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.blue)),
-                                          ),
-                                        ],
-                                      ),
-                                      const Align(
+                        child: Padding(
+                          padding: const EdgeInsets.all(18),
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: Form(
+                              key: _formKey,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: <Widget>[
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                                context, '/auth'),
+                                            child: const Icon(Icons.arrow_back,
+                                                size: 30)),
+                                        const Align(
                                           alignment: Alignment.topLeft,
-                                          child: Labels.sm(
-                                              text: "Lets get started")),
-                                      const SizedBox(height: 40),
-                                      Consumer<AuthProvider>(
-                                        builder: (context, user, child) {
-                                          return user.notification;
-                                        },
-                                      ),
-                                      const SizedBox(height: 20),
-                                      TextFormField(
-                                        decoration: Styles.input.copyWith(
-                                          labelText: 'Email Address',
+                                          child: Text("Login",
+                                              style: TextStyle(
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.blue)),
                                         ),
-                                        validator: (value) {
-                                          email = value!.trim();
-                                          return Validate.validateEmail(value);
-                                        },
-                                        initialValue: 'test@test.com',
+                                      ],
+                                    ),
+                                    const Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Labels.sm(
+                                            text: "Lets get started")),
+                                    const SizedBox(height: 40),
+                                    Consumer<AuthProvider>(
+                                      builder: (context, user, child) {
+                                        return user.notification;
+                                      },
+                                    ),
+                                    const SizedBox(height: 20),
+                                    TextFormField(
+                                      decoration: Styles.input.copyWith(
+                                        labelText: 'Email Address',
                                       ),
-                                      const SizedBox(height: 30),
-                                      TextFormField(
-                                        obscureText: true,
-                                        decoration: Styles.input.copyWith(
-                                          labelText: 'Password',
-                                        ),
-                                        validator: (value) {
-                                          password = value!.trim();
-                                          return Validate.requiredField(
-                                              value, 'Password is required.');
-                                        },
-                                        initialValue: 'password',
+                                      validator: (value) {
+                                        email = value!.trim();
+                                        return Validate.validateEmail(value);
+                                      },
+                                      initialValue: 'test@driver.com',
+                                    ),
+                                    const SizedBox(height: 30),
+                                    TextFormField(
+                                      obscureText: true,
+                                      decoration: Styles.input.copyWith(
+                                        labelText: 'Password',
                                       ),
-                                      const SizedBox(height: 50),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.pushNamed(context,
-                                                  '/reset_password_link');
-                                            },
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Labels.sm(
-                                                text: "Forgot Password?",
-                                                textColor: context
-                                                    .resources.color.colorDark,
-                                              ),
+                                      validator: (value) {
+                                        password = value!.trim();
+                                        return Validate.requiredField(
+                                            value, 'Password is required.');
+                                      },
+                                      initialValue: 'password',
+                                    ),
+                                    const SizedBox(height: 50),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                '/reset_password_link');
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Labels.sm(
+                                              text: "Forgot Password?",
+                                              textColor: context
+                                                  .resources.color.colorDark,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 20),
-                                      Buttons(
-                                        onTap: submit,
-                                        text: "LOGIN",
-                                        color:
-                                            context.resources.color.colorAccent,
-                                        textColor: context
-                                            .resources.color.textSecondary,
-                                      ),
-                                      const SizedBox(height: 80),
-                                    ],
-                                  ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Buttons(
+                                      onTap: submit,
+                                      text: "LOGIN",
+                                      color:
+                                          context.resources.color.colorAccent,
+                                      textColor:
+                                          context.resources.color.textSecondary,
+                                    ),
+                                    const SizedBox(height: 80),
+                                  ],
                                 ),
                               ),
                             ),

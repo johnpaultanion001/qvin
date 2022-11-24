@@ -116,6 +116,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   ],
                 ),
                 width: double.maxFinite,
+                height: double.maxFinite,
                 child: Padding(
                   padding: const EdgeInsets.all(18),
                   child: SingleChildScrollView(
@@ -130,7 +131,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                             const SizedBox(height: 10),
                             Labels.md(
-                              text: widget.user.display_name,
+                              text: widget.user.name!,
                               textColor: context.resources.color.colorDark,
                             ),
                             const SizedBox(height: 10),

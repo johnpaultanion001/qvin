@@ -18,7 +18,8 @@ class _SplashState extends State<Splash> {
       setState(() {
         Navigator.of(context).pushAndRemoveUntil(
             PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => Permission(),
+              pageBuilder: (context, animation1, animation2) =>
+                  PermissionScreen(),
               transitionDuration: Duration(milliseconds: 1500),
             ),
             (_) => false);

@@ -1,15 +1,16 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qvin/view/dashboard/contents/dvir/dvir_visual.dart';
+import 'package:qvin/providers/dashboardProvider.dart';
+import 'package:qvin/view/dashboard/contents/dvir/dvir.dart';
 import 'package:qvin/view/dashboard/contents/information/information.dart';
 import 'package:qvin/view/dashboard/contents/profile/profile.dart';
+import 'package:qvin/view/dashboard/contents/scan_qr/add_new_trailer.dart';
 import 'package:qvin/view/dashboard/contents/scan_qr/scan_qr.dart';
 import 'package:qvin/styles/AppContextExtension.dart';
 import 'package:qvin/styles/widgets/bottomBar.dart';
 import '../../providers/auth.dart';
 import '../../utils/loading.dart';
-import 'contents/dvir/dvir.dart';
 
 class Dashboard extends StatefulWidget {
   int selectedItem;
@@ -24,11 +25,12 @@ class Dashboard extends StatefulWidget {
 
 class _Dashboard extends State<Dashboard> {
   late String _title;
+  late String _titleButton;
   bool isLoading = false;
 
   final List<Widget> _widgetOptions = <Widget>[
     ScanQR(),
-    DVIRVisual(),
+    DVIR(),
     Information(),
     Profile(),
   ];
@@ -79,9 +81,21 @@ class _Dashboard extends State<Dashboard> {
         false;
   }
 
+  Future<void> isFormDvir() async {
+    final dashboardProvider =
+        Provider.of<DashboardProvider>(context, listen: false);
+    dashboardProvider.isFormDVIR();
+    if (dashboardProvider.isForm == true) {
+      setState(() => _titleButton = 'FORM MODE');
+    } else {
+      setState(() => _titleButton = 'VISUAL MODE');
+    }
+  }
+
   @override
   initState() {
     _title = 'SCAN QR CODE';
+    _titleButton = 'FORM MODE';
   }
 
   @override
@@ -96,13 +110,32 @@ class _Dashboard extends State<Dashboard> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: GestureDetector(
+                      onTap: isFormDvir,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: context.resources.color.colorLightGray),
+                            color: context.resources.color.colorAccent,
+                            borderRadius: BorderRadius.circular(6)),
+                        child: Center(
+                          child: Text(_titleButton,
+                              style: TextStyle(
+                                  color: context.resources.color.colorWhite,
+                                  fontSize: 16)),
+                        ),
+                      ),
+                    ),
+                  )
+                else if (widget.selectedItem == 0)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Dashboard(
-                                    selectedItem: 4,
-                                  )),
+                              builder: (context) => AddNewTrailer()),
                         );
                       },
                       child: Container(
@@ -113,7 +146,7 @@ class _Dashboard extends State<Dashboard> {
                             color: context.resources.color.colorAccent,
                             borderRadius: BorderRadius.circular(6)),
                         child: Center(
-                          child: Text('FORM MODE',
+                          child: Text('ADD NEW TRAILER MODE',
                               style: TextStyle(
                                   color: context.resources.color.colorWhite,
                                   fontSize: 16)),
@@ -127,9 +160,12 @@ class _Dashboard extends State<Dashboard> {
               centerTitle: widget.selectedItem != 1 ? true : false,
               backgroundColor: context.resources.color.colorPrimary,
               elevation: 0,
-              title: Text(
-                _title,
-                style: TextStyle(fontSize: 16, color: Colors.white),
+              title: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  _title,
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
               ),
               automaticallyImplyLeading: false,
             ),

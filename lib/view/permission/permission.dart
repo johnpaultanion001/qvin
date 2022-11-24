@@ -7,16 +7,32 @@ import '../../providers/sliderProvider.dart';
 import '../../styles/widgets/buttons.dart';
 import '../../styles/widgets/logo.dart';
 import '../auth/authenticate.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class Permission extends StatefulWidget {
-  const Permission({Key? key}) : super(key: key);
+class PermissionScreen extends StatefulWidget {
+  const PermissionScreen({Key? key}) : super(key: key);
   @override
-  State<Permission> createState() => _PermissionState();
+  State<PermissionScreen> createState() => _PermissionScreenState();
 }
 
-class _PermissionState extends State<Permission> {
+class _PermissionScreenState extends State<PermissionScreen> {
   int currentIndex = 0;
   PageController _controller = PageController();
+
+  Future<void> PermissionCamera() async {
+    print('permession camera');
+    await Permission.camera.request();
+  }
+
+  Future<void> PermissionGPS() async {
+    print('permession gps');
+    await Permission.location.request();
+  }
+
+  Future<void> PermissionNotif() async {
+    print('permession notif');
+    await Permission.notification.request();
+  }
 
   @override
   void initState() {
@@ -77,10 +93,17 @@ class _PermissionState extends State<Permission> {
               Buttons(
                 onTap: () {
                   if (currentIndex == slides.length - 1) {
+                    PermissionCamera();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => Authenticate()),
                     );
+                  }
+                  if (currentIndex == 1) {
+                    PermissionGPS();
+                  }
+                  if (currentIndex == 2) {
+                    PermissionNotif();
                   }
                   _controller.nextPage(
                     duration: Duration(milliseconds: 100),

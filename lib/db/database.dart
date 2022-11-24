@@ -9,12 +9,12 @@ class SQLite {
 
   static Future<void> _onCreate(Database db, int ver) async {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    const textType = 'TEXT NOT NULL';
+    const textType = 'TEXT NULL';
 
     await db.execute('''
       CREATE TABLE $tableUser ( 
         ${UserField.id} $idType, 
-        ${UserField.display_name} $textType,
+        ${UserField.name} $textType,
         ${UserField.email} $textType,
         ${UserField.type} $textType
         )
@@ -42,7 +42,7 @@ class SQLiteHelper {
 
     return SQLite.db.query(
       tableUser,
-      where: 'id=?',
+      where: '_id=?',
       whereArgs: [id],
       limit: 1,
     );
@@ -63,7 +63,8 @@ class SQLiteHelper {
   //     tableUser,
   //     where: 'id=?',
   //     whereArgs: [id],
-  //     limit: 1,
+  //
+  //  limit: 1,
   //   );
   // }
 

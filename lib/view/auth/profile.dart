@@ -7,18 +7,15 @@ import 'package:qvin/utils/loading_screen.dart';
 import '../../providers/auth.dart';
 import '../../styles/styles.dart';
 import '../../styles/widgets/buttons.dart';
-import '../../styles/widgets/logo.dart';
 import '../../utils/validate.dart';
 
 class CreateProfile extends StatefulWidget {
   String typeOfUser;
   String email;
-  String password;
 
   CreateProfile({
     required this.typeOfUser,
     required this.email,
-    required this.password,
     Key? key,
   }) : super(key: key);
 
@@ -27,12 +24,16 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> {
-  String truckMake = 'Truck Make';
-  String truckModel = 'Truck Model';
+  String vehicleMake = 'Vehicle Make';
+  String vehicleModel = 'Vehicle Model';
   String driverType = 'Driver Type';
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late String displayName;
+  late String name;
+  late String vehicleYear;
+  late String dotNumber;
+  late String phoneNumber;
+
   bool isLoading = false;
   bool? check = true;
 
@@ -40,24 +41,26 @@ class _CreateProfileState extends State<CreateProfile> {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     if (_formKey.currentState!.validate()) {
-      print('SIGNUP');
       setState(() => isLoading = true);
-      await authProvider.signup(
-        displayName,
+      await authProvider.profile(
         widget.email,
-        widget.password,
-        widget.typeOfUser,
+        name,
+        vehicleMake,
+        vehicleModel,
+        vehicleYear,
+        dotNumber,
+        phoneNumber,
+        driverType,
       );
       if (authProvider.statusResponse == 200) {
         Navigator.pushNamed(context, '/');
       }
-      setState(() => isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.typeOfUser + widget.email + widget.password);
+    print(widget.typeOfUser + widget.email);
     return SafeArea(
       child: isLoading
           ? const LoadingScreen()
@@ -134,7 +137,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                   : const Text('no data')),
                                   Buttons(
                                     onTap: submit,
-                                    text: "SIGNUP",
+                                    text: "CONTINUE",
                                     color: context.resources.color.colorAccent,
                                     textColor:
                                         context.resources.color.textSecondary,
@@ -169,7 +172,7 @@ class _CreateProfileState extends State<CreateProfile> {
             labelText: 'Driver Name',
           ),
           validator: (value) {
-            displayName = value!.trim();
+            name = value!.trim();
             return Validate.requiredField(value, 'Name is required.');
           },
           initialValue: 'Driver',
@@ -177,10 +180,10 @@ class _CreateProfileState extends State<CreateProfile> {
         const SizedBox(height: 10),
         InputDecorator(
           decoration: const InputDecoration(
-              labelText: 'Truck Make', border: OutlineInputBorder()),
+              labelText: 'Vehicle Make', border: OutlineInputBorder()),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: truckMake,
+              value: vehicleMake,
               iconSize: 24,
               elevation: 16,
               isDense: true,
@@ -188,12 +191,12 @@ class _CreateProfileState extends State<CreateProfile> {
               isExpanded: true,
               onChanged: (String? newValue) {
                 setState(() {
-                  truckMake = newValue!;
+                  vehicleMake = newValue!;
                 });
               },
               items: <String>[
-                'Truck Make',
-                'Truck Make1',
+                'Vehicle Make',
+                'Vehicle Make1',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -206,10 +209,10 @@ class _CreateProfileState extends State<CreateProfile> {
         const SizedBox(height: 10),
         InputDecorator(
           decoration: const InputDecoration(
-              labelText: 'Truck Model', border: OutlineInputBorder()),
+              labelText: 'Vehicle Model', border: OutlineInputBorder()),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: truckModel,
+              value: vehicleModel,
               iconSize: 24,
               elevation: 16,
               isDense: true,
@@ -217,12 +220,12 @@ class _CreateProfileState extends State<CreateProfile> {
               isExpanded: true,
               onChanged: (String? newValue) {
                 setState(() {
-                  truckModel = newValue!;
+                  vehicleModel = newValue!;
                 });
               },
               items: <String>[
-                'Truck Model',
-                'Truck Model1',
+                'Vehicle Model',
+                'Vehicle Model1',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -234,14 +237,37 @@ class _CreateProfileState extends State<CreateProfile> {
         ),
         const SizedBox(height: 10),
         TextFormField(
-            decoration: Styles.input.copyWith(
-          labelText: 'DOT #',
-        )),
+          decoration: Styles.input.copyWith(
+            labelText: 'Vehicle Year',
+          ),
+          validator: (value) {
+            vehicleYear = value!.trim();
+            return Validate.requiredField(value, 'Vehicle year is required.');
+          },
+          initialValue: '2011',
+        ),
         const SizedBox(height: 10),
         TextFormField(
-            decoration: Styles.input.copyWith(
-          labelText: 'PHONE #',
-        )),
+          decoration: Styles.input.copyWith(
+            labelText: 'DOT #',
+          ),
+          validator: (value) {
+            dotNumber = value!.trim();
+            return Validate.requiredField(value, 'Dot number is required.');
+          },
+          initialValue: '12312321123',
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          decoration: Styles.input.copyWith(
+            labelText: 'PHONE #',
+          ),
+          validator: (value) {
+            phoneNumber = value!.trim();
+            return Validate.requiredField(value, 'Dot number is required.');
+          },
+          initialValue: '+63094422322',
+        ),
         const SizedBox(height: 10),
         InputDecorator(
           decoration: const InputDecoration(
@@ -292,7 +318,7 @@ class _CreateProfileState extends State<CreateProfile> {
             labelText: 'Mechanic Name',
           ),
           validator: (value) {
-            displayName = value!.trim();
+            name = value!.trim();
             return Validate.requiredField(value, 'Name is required.');
           },
           initialValue: 'Mechanic',
@@ -330,7 +356,7 @@ class _CreateProfileState extends State<CreateProfile> {
             labelText: 'Police Name',
           ),
           validator: (value) {
-            displayName = value!.trim();
+            name = value!.trim();
             return Validate.requiredField(value, 'Name is required.');
           },
           initialValue: 'Police',

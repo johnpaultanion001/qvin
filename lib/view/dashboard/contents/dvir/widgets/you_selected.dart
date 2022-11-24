@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qvin/styles/AppContextExtension.dart';
 import 'package:qvin/styles/widgets/labels.dart';
 import 'package:qvin/view/dashboard/contents/dvir/widgets/continue_to_repair.dart';
-import 'package:qvin/view/dashboard/contents/dvir/widgets/select_problem.dart';
+import 'package:qvin/view/dashboard/contents/dvir/dvir_visual/select_problem.dart';
 
 import '../../../../../styles/styles.dart';
 import '../../../../../styles/widgets/buttons.dart';
