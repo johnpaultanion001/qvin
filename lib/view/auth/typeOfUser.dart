@@ -93,54 +93,49 @@ class _TypeOfUserState extends State<TypeOfUser> {
                 width: double.maxFinite,
                 child: Padding(
                   padding: const EdgeInsets.all(18),
-                  child: Center(
-                    child: Material(
-                      type: MaterialType.transparency,
-                      child: Stack(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Row(
-                                children: [
-                                  InkWell(
-                                      onTap: () =>
-                                          Navigator.pushNamed(context, '/auth'),
-                                      child: const Icon(Icons.arrow_back,
-                                          size: 30)),
-                                  const Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text("Type Of User",
-                                        style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue)),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              InkWell(
+                                  onTap: () =>
+                                      Navigator.pushNamed(context, '/auth'),
+                                  child:
+                                      const Icon(Icons.arrow_back, size: 30)),
                               const Align(
                                 alignment: Alignment.topLeft,
-                                child: Labels.sm(
-                                  text:
-                                      "Please select what you will be doing with QVIN and your experience will be customized.",
-                                ),
+                                child: Text("Type Of User",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue)),
                               ),
-                              const SizedBox(height: 20),
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    ...List.generate(
-                                      buttonText.length,
-                                      (index) => button(
-                                        index: index,
-                                        text: buttonText[index],
-                                      ),
-                                    ),
-                                  ],
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Labels.sm(
+                              text:
+                                  "Please select what you will be doing with QVIN and your experience will be customized.",
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Column(
+                            children: [
+                              ...List.generate(
+                                buttonText.length,
+                                (index) => button(
+                                  index: index,
+                                  text: buttonText[index],
                                 ),
                               ),
                             ],
                           ),
+                          const SizedBox(height: 20),
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Buttons(

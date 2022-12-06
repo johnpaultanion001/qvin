@@ -7,8 +7,9 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.LOCATION"/>
 
+
    <application
-        android:label="untitled"
+        android:label="QVIN"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

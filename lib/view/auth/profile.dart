@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qvin/styles/AppContextExtension.dart';
 import 'package:qvin/styles/widgets/labels.dart';
 import 'package:qvin/utils/loading_screen.dart';
 import '../../providers/auth.dart';
+import '../../providers/profileProvider.dart';
 import '../../styles/styles.dart';
 import '../../styles/widgets/buttons.dart';
 import '../../utils/validate.dart';
@@ -24,9 +26,9 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> {
-  String vehicleMake = 'Vehicle Make';
-  String vehicleModel = 'Vehicle Model';
   String driverType = 'Driver Type';
+  String? vehicleMake;
+  String? vehicleModel;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String name;
@@ -36,6 +38,8 @@ class _CreateProfileState extends State<CreateProfile> {
 
   bool isLoading = false;
   bool? check = true;
+  List vehicleModelLists = [];
+  List vehicleMakeLists = [];
 
   Future<void> submit() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -45,8 +49,8 @@ class _CreateProfileState extends State<CreateProfile> {
       await authProvider.profile(
         widget.email,
         name,
-        vehicleMake,
-        vehicleModel,
+        vehicleMake!,
+        vehicleModel!,
         vehicleYear,
         dotNumber,
         phoneNumber,
@@ -58,9 +62,14 @@ class _CreateProfileState extends State<CreateProfile> {
     }
   }
 
+  // @override
+  // void initState() {
+
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
-    print(widget.typeOfUser + widget.email);
     return SafeArea(
       child: isLoading
           ? const LoadingScreen()
@@ -178,60 +187,79 @@ class _CreateProfileState extends State<CreateProfile> {
           initialValue: 'Driver',
         ),
         const SizedBox(height: 10),
-        InputDecorator(
-          decoration: const InputDecoration(
-              labelText: 'Vehicle Make', border: OutlineInputBorder()),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: vehicleMake,
-              iconSize: 24,
-              elevation: 16,
-              isDense: true,
-              icon: const Icon(Icons.arrow_drop_down),
-              isExpanded: true,
-              onChanged: (String? newValue) {
-                setState(() {
-                  vehicleMake = newValue!;
-                });
-              },
-              items: <String>[
-                'Vehicle Make',
-                'Vehicle Make1',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+        GestureDetector(
+          onTap: () {
+            final profileProvider =
+                Provider.of<ProfileProvider>(context, listen: false);
+            profileProvider.getMakeList();
+
+            setState(() {
+              vehicleMakeLists = profileProvider.getMakeLists;
+            });
+            print(vehicleMakeLists);
+          },
+          child: InputDecorator(
+            decoration: Styles.input.copyWith(
+              labelText: 'Vehicle Make',
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: vehicleMake,
+                iconSize: 24,
+                elevation: 16,
+                isDense: true,
+                icon: const Icon(Icons.arrow_drop_down),
+                isExpanded: true,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    vehicleMake = newValue!;
+                  });
+                },
+                items: vehicleMakeLists.map((item) {
+                  return DropdownMenuItem(
+                    child: Text(item['name']),
+                    value: item['id'].toString(),
+                  );
+                }).toList(),
+              ),
             ),
           ),
         ),
         const SizedBox(height: 10),
-        InputDecorator(
-          decoration: const InputDecoration(
-              labelText: 'Vehicle Model', border: OutlineInputBorder()),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: vehicleModel,
-              iconSize: 24,
-              elevation: 16,
-              isDense: true,
-              icon: const Icon(Icons.arrow_drop_down),
-              isExpanded: true,
-              onChanged: (String? newValue) {
-                setState(() {
-                  vehicleModel = newValue!;
-                });
-              },
-              items: <String>[
-                'Vehicle Model',
-                'Vehicle Model1',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+        GestureDetector(
+          onTap: () {
+            final profileProvider =
+                Provider.of<ProfileProvider>(context, listen: false);
+            profileProvider.getModelList();
+            setState(() {
+              vehicleModelLists = profileProvider.getModelLists;
+            });
+            print(vehicleModelLists);
+          },
+          child: InputDecorator(
+            decoration: Styles.input.copyWith(
+              labelText: 'Vehicle Model',
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: vehicleModel,
+                iconSize: 24,
+                elevation: 16,
+                isDense: true,
+                icon: const Icon(Icons.arrow_drop_down),
+                isExpanded: true,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    vehicleModel = newValue!;
+                  });
+                },
+                items: vehicleModelLists.map((item) {
+                  return DropdownMenuItem(
+                    child: Text(item['name']),
+                    value: item['id'].toString(),
+                  );
+                }).toList(),
+              ),
             ),
           ),
         ),

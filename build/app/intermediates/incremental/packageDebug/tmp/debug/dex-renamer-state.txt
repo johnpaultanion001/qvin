@@ -1,4 +1,4 @@
-#Tue Nov 22 19:39:55 CST 2022
+#Mon Dec 05 23:03:47 CST 2022
 base.1=C\:\\flutter_project\\qvin\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.1=classes2.dex
 base.0=C\:\\flutter_project\\qvin\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
