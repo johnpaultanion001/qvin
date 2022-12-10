@@ -55,6 +55,7 @@ class AuthProvider with ChangeNotifier {
     Response response;
     try {
       response = await DioHelper.dio.post('login', data: data);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         if (response.data['data']['qvin_profile']['name'] != '') {
           _notification = const NotificationText(

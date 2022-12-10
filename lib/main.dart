@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qvin/providers/auth.dart';
 import 'package:qvin/providers/dashboardProvider.dart';
 import 'package:qvin/providers/profileProvider.dart';
+import 'package:qvin/providers/qrProvider.dart';
 import 'package:qvin/utils/loading.dart';
 import 'package:qvin/utils/loading_screen.dart';
 import 'package:qvin/view/auth/authenticate.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (create) => InfomationProvider()),
         ChangeNotifierProvider(create: (create) => ProfileProvider()),
         ChangeNotifierProvider(create: (create) => DashboardProvider()),
+        ChangeNotifierProvider(create: (create) => QrProvider()),
       ],
       child: MaterialApp(
         title: title,

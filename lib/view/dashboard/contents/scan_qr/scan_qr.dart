@@ -8,6 +8,7 @@ import 'package:qvin/view/dashboard/contents/dvir/dvir_terms.dart';
 import 'package:qvin/view/dashboard/contents/scan_qr/not_found.dart';
 
 import '../../../../utils/loading.dart';
+import 'add_new_trailer.dart';
 
 class ScanQR extends StatefulWidget {
   const ScanQR({super.key});
@@ -44,12 +45,11 @@ class _ScanQRState extends State<ScanQR> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      if (result == null)
-                        Labels.sm(
-                          text:
-                              'Please place the document squarely in the frame.',
-                          textColor: context.resources.color.textSecondary,
-                        )
+                      Labels.sm(
+                        text:
+                            'Please place the document squarely in the frame.',
+                        textColor: context.resources.color.textSecondary,
+                      )
                     ],
                   ),
                 ),
@@ -127,11 +127,12 @@ class _ScanQRState extends State<ScanQR> {
   }
 
   Future<void> submit() async {
+    print(result!.code);
     setState(() => isLoading = true);
     await Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const TrailerNotFound()),
+        MaterialPageRoute(builder: (context) => const AddNewTrailer()),
       );
     });
     setState(() => isLoading = false);

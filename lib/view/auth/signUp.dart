@@ -147,7 +147,6 @@ class _SignUpState extends State<SignUp> {
                                             return Validate.validateEmail(
                                                 value);
                                           },
-                                          initialValue: 'test@driver.com',
                                         ),
                                         const SizedBox(height: 10),
                                         TextFormField(
@@ -160,7 +159,6 @@ class _SignUpState extends State<SignUp> {
                                             return Validate.requiredField(
                                                 value, 'Password is required.');
                                           },
-                                          initialValue: 'password',
                                         ),
                                         const SizedBox(height: 10),
                                         TextFormField(
@@ -173,14 +171,12 @@ class _SignUpState extends State<SignUp> {
                                             return Validate.confirmPassword(
                                                 value, password);
                                           },
-                                          initialValue: 'password',
                                         ),
                                         const SizedBox(height: 20),
                                         const Labels.sm(
                                           text:
                                               "By creating an account you agree to our Terms of Service and Privacy Policy",
                                         ),
-                                        const SizedBox(height: 20),
                                         Align(
                                           alignment: Alignment.bottomCenter,
                                           child: Buttons(

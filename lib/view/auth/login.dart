@@ -129,7 +129,6 @@ class _LoginState extends State<Login> {
                                         email = value!.trim();
                                         return Validate.validateEmail(value);
                                       },
-                                      initialValue: 'test@driver.com',
                                     ),
                                     const SizedBox(height: 30),
                                     TextFormField(
@@ -142,7 +141,6 @@ class _LoginState extends State<Login> {
                                         return Validate.requiredField(
                                             value, 'Password is required.');
                                       },
-                                      initialValue: 'password',
                                     ),
                                     const SizedBox(height: 50),
                                     Row(

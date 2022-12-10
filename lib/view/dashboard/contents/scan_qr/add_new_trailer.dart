@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qvin/providers/qrProvider.dart';
 import 'package:qvin/styles/AppContextExtension.dart';
 import 'package:qvin/styles/widgets/labels.dart';
 
@@ -8,7 +10,11 @@ import '../../../../../styles/widgets/buttons.dart';
 
 // ignore: must_be_immutable
 class AddNewTrailer extends StatefulWidget {
-  const AddNewTrailer({Key? key}) : super(key: key);
+  final String? qrCode;
+  const AddNewTrailer({
+    this.qrCode,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AddNewTrailer> createState() => _AddNewTrailerState();
@@ -16,7 +22,18 @@ class AddNewTrailer extends StatefulWidget {
 
 class _AddNewTrailerState extends State<AddNewTrailer> {
   bool? check = true;
-  String dropdownValue = 'AQ114';
+  String? trailer;
+  List trailerLists = [];
+
+  @override
+  initState() {
+    final profileProvider = Provider.of<QrProvider>(context, listen: false);
+    profileProvider.getTrailerList();
+
+    setState(() {
+      trailerLists = profileProvider.getTrailerLists;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,31 +76,42 @@ class _AddNewTrailerState extends State<AddNewTrailer> {
                         children: [
                           const Labels.md(text: "Select Trailer:"),
                           const SizedBox(height: 10),
-                          InputDecorator(
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder()),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                hint: const Text('Select Trailer'),
-                                value: dropdownValue,
-                                iconSize: 24,
-                                elevation: 16,
-                                isDense: true,
-                                icon: const Icon(Icons.arrow_drop_down),
-                                isExpanded: true,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    dropdownValue = newValue!;
-                                  });
-                                },
-                                items: <String>[
-                                  'AQ114',
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
+                          GestureDetector(
+                            onTap: () {
+                              final profileProvider = Provider.of<QrProvider>(
+                                  context,
+                                  listen: false);
+                              profileProvider.getTrailerList();
+
+                              setState(() {
+                                trailerLists = profileProvider.getTrailerLists;
+                              });
+                              print(trailerLists);
+                            },
+                            child: InputDecorator(
+                              decoration: Styles.input.copyWith(
+                                labelText: 'Select Trailer',
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: trailer,
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  isDense: true,
+                                  icon: const Icon(Icons.arrow_drop_down),
+                                  isExpanded: true,
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      trailer = newValue!;
+                                    });
+                                  },
+                                  items: trailerLists.map((item) {
+                                    return DropdownMenuItem(
+                                      child: Text(item['name']),
+                                      value: item['id'].toString(),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
                             ),
                           ),

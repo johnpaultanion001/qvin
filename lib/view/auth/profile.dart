@@ -184,7 +184,6 @@ class _CreateProfileState extends State<CreateProfile> {
             name = value!.trim();
             return Validate.requiredField(value, 'Name is required.');
           },
-          initialValue: 'Driver',
         ),
         const SizedBox(height: 10),
         GestureDetector(
@@ -272,7 +271,6 @@ class _CreateProfileState extends State<CreateProfile> {
             vehicleYear = value!.trim();
             return Validate.requiredField(value, 'Vehicle year is required.');
           },
-          initialValue: '2011',
         ),
         const SizedBox(height: 10),
         TextFormField(
@@ -294,7 +292,6 @@ class _CreateProfileState extends State<CreateProfile> {
             phoneNumber = value!.trim();
             return Validate.requiredField(value, 'Dot number is required.');
           },
-          initialValue: '+63094422322',
         ),
         const SizedBox(height: 10),
         InputDecorator(
@@ -349,7 +346,6 @@ class _CreateProfileState extends State<CreateProfile> {
             name = value!.trim();
             return Validate.requiredField(value, 'Name is required.');
           },
-          initialValue: 'Mechanic',
         ),
         const SizedBox(height: 10),
         TextFormField(
@@ -387,7 +383,6 @@ class _CreateProfileState extends State<CreateProfile> {
             name = value!.trim();
             return Validate.requiredField(value, 'Name is required.');
           },
-          initialValue: 'Police',
         ),
         const SizedBox(height: 10),
         TextFormField(
