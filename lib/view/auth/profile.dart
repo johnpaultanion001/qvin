@@ -1,10 +1,11 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qvin/styles/AppContextExtension.dart';
 import 'package:qvin/styles/widgets/labels.dart';
 import 'package:qvin/utils/loading_screen.dart';
+import '../../dio/dio_helper.dart';
 import '../../providers/auth.dart';
 import '../../providers/profileProvider.dart';
 import '../../styles/styles.dart';
@@ -62,106 +63,110 @@ class _CreateProfileState extends State<CreateProfile> {
     }
   }
 
-  // @override
-  // void initState() {
-
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    _getMakeList();
+    _getModelList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: isLoading
-          ? const LoadingScreen()
-          : Container(
-              decoration: BoxDecoration(
-                color: context.resources.color.colorPrimary,
-              ),
-              height: double.maxFinite,
-              width: double.maxFinite,
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(40),
-                              topLeft: Radius.circular(40)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        width: double.maxFinite,
-                        height: double.maxFinite,
-                        child: Padding(
-                          padding: const EdgeInsets.all(18),
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                          onTap: () =>
-                                              Navigator.of(context).pop(true),
-                                          child: const Icon(Icons.arrow_back,
-                                              size: 30)),
-                                      const Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text("Create Profile",
-                                            style: TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.blue)),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Consumer<AuthProvider>(
-                                    builder: (context, user, child) {
-                                      return user.notification;
-                                    },
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Form(
-                                      key: _formKey,
-                                      child: widget.typeOfUser == "driver"
-                                          ? driverProfile(context)
-                                          : widget.typeOfUser == "mechanic"
-                                              ? mechanicProfile(context)
-                                              : widget.typeOfUser ==
-                                                      "police_officer"
-                                                  ? policeProfile(context)
-                                                  : const Text('no data')),
-                                  Buttons(
-                                    onTap: submit,
-                                    text: "CONTINUE",
-                                    color: context.resources.color.colorAccent,
-                                    textColor:
-                                        context.resources.color.textSecondary,
-                                  ),
-                                ],
+    return Scaffold(
+      body: SafeArea(
+        child: isLoading
+            ? const LoadingScreen()
+            : Container(
+                decoration: BoxDecoration(
+                  color: context.resources.color.colorPrimary,
+                ),
+                height: double.maxFinite,
+                width: double.maxFinite,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(40),
+                                topLeft: Radius.circular(40)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          width: double.maxFinite,
+                          height: double.maxFinite,
+                          child: Padding(
+                            padding: const EdgeInsets.all(18),
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                            onTap: () =>
+                                                Navigator.of(context).pop(true),
+                                            child: const Icon(Icons.arrow_back,
+                                                size: 30)),
+                                        const Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Text("Create Profile",
+                                              style: TextStyle(
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.blue)),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Consumer<AuthProvider>(
+                                      builder: (context, user, child) {
+                                        return user.notification;
+                                      },
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Form(
+                                        key: _formKey,
+                                        child: widget.typeOfUser == "driver"
+                                            ? driverProfile(context)
+                                            : widget.typeOfUser == "mechanic"
+                                                ? mechanicProfile(context)
+                                                : widget.typeOfUser ==
+                                                        "police_officer"
+                                                    ? policeProfile(context)
+                                                    : const Text('no data')),
+                                    Buttons(
+                                      onTap: submit,
+                                      text: "CONTINUE",
+                                      color:
+                                          context.resources.color.colorAccent,
+                                      textColor:
+                                          context.resources.color.textSecondary,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 
@@ -186,79 +191,56 @@ class _CreateProfileState extends State<CreateProfile> {
           },
         ),
         const SizedBox(height: 10),
-        GestureDetector(
-          onTap: () {
-            final profileProvider =
-                Provider.of<ProfileProvider>(context, listen: false);
-            profileProvider.getMakeList();
-
-            setState(() {
-              vehicleMakeLists = profileProvider.getMakeLists;
-            });
-            print(vehicleMakeLists);
-          },
-          child: InputDecorator(
-            decoration: Styles.input.copyWith(
-              labelText: 'Vehicle Make',
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: vehicleMake,
-                iconSize: 24,
-                elevation: 16,
-                isDense: true,
-                icon: const Icon(Icons.arrow_drop_down),
-                isExpanded: true,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    vehicleMake = newValue!;
-                  });
-                },
-                items: vehicleMakeLists.map((item) {
-                  return DropdownMenuItem(
-                    child: Text(item['name']),
-                    value: item['id'].toString(),
-                  );
-                }).toList(),
-              ),
+        InputDecorator(
+          decoration: Styles.input.copyWith(
+            labelText: 'Vehicle Make',
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: vehicleMake,
+              iconSize: 24,
+              elevation: 16,
+              isDense: true,
+              icon: const Icon(Icons.arrow_drop_down),
+              isExpanded: true,
+              onChanged: (String? newValue) {
+                setState(() {
+                  vehicleMake = newValue!;
+                });
+              },
+              items: vehicleMakeLists.map((item) {
+                return DropdownMenuItem(
+                  child: Text(item['name']),
+                  value: item['id'].toString(),
+                );
+              }).toList(),
             ),
           ),
         ),
         const SizedBox(height: 10),
-        GestureDetector(
-          onTap: () {
-            final profileProvider =
-                Provider.of<ProfileProvider>(context, listen: false);
-            profileProvider.getModelList();
-            setState(() {
-              vehicleModelLists = profileProvider.getModelLists;
-            });
-            print(vehicleModelLists);
-          },
-          child: InputDecorator(
-            decoration: Styles.input.copyWith(
-              labelText: 'Vehicle Model',
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: vehicleModel,
-                iconSize: 24,
-                elevation: 16,
-                isDense: true,
-                icon: const Icon(Icons.arrow_drop_down),
-                isExpanded: true,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    vehicleModel = newValue!;
-                  });
-                },
-                items: vehicleModelLists.map((item) {
-                  return DropdownMenuItem(
-                    child: Text(item['name']),
-                    value: item['id'].toString(),
-                  );
-                }).toList(),
-              ),
+        InputDecorator(
+          decoration: Styles.input.copyWith(
+            labelText: 'Vehicle Model',
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: vehicleModel,
+              iconSize: 24,
+              elevation: 16,
+              isDense: true,
+              icon: const Icon(Icons.arrow_drop_down),
+              isExpanded: true,
+              onChanged: (String? newValue) {
+                setState(() {
+                  vehicleModel = newValue!;
+                });
+              },
+              items: vehicleModelLists.map((item) {
+                return DropdownMenuItem(
+                  child: Text(item['name']),
+                  value: item['id'].toString(),
+                );
+              }).toList(),
             ),
           ),
         ),
@@ -430,5 +412,45 @@ class _CreateProfileState extends State<CreateProfile> {
         ),
       ],
     );
+  }
+
+  Future<String?> _getMakeList() async {
+    Response response;
+    response = await DioHelper.dio.get(
+      'vehicles/makes',
+      options: Options(
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+      ),
+    );
+
+    print(response.statusCode);
+
+    setState(() {
+      vehicleMakeLists = response.data['data'];
+    });
+    return null;
+  }
+
+  Future<String?> _getModelList() async {
+    Response response;
+    response = await DioHelper.dio.get(
+      'vehicles/models',
+      options: Options(
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+      ),
+    );
+
+    print(response.statusCode);
+
+    setState(() {
+      vehicleModelLists = response.data['data'];
+    });
+    return null;
   }
 }
