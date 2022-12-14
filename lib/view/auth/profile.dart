@@ -263,7 +263,6 @@ class _CreateProfileState extends State<CreateProfile> {
             dotNumber = value!.trim();
             return Validate.requiredField(value, 'Dot number is required.');
           },
-          initialValue: '12312321123',
         ),
         const SizedBox(height: 10),
         TextFormField(
@@ -272,7 +271,7 @@ class _CreateProfileState extends State<CreateProfile> {
           ),
           validator: (value) {
             phoneNumber = value!.trim();
-            return Validate.requiredField(value, 'Dot number is required.');
+            return Validate.requiredField(value, 'Phone number is required.');
           },
         ),
         const SizedBox(height: 10),
